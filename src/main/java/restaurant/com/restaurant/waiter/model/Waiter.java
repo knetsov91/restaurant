@@ -2,9 +2,12 @@ package restaurant.com.restaurant.waiter.model;
 
 
 import jakarta.persistence.*;
+import org.springframework.core.Ordered;
+import restaurant.com.restaurant.order.model.Order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,5 +31,8 @@ public class Waiter {
 
     @Column(nullable = false)
     private BigDecimal salary;
+
+    @OneToMany(mappedBy = "waiter", fetch = FetchType.EAGER)
+    private List<Order> orders;
 
 }
