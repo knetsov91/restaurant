@@ -1,12 +1,19 @@
 package restaurant.com.restaurant.user.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 import restaurant.com.restaurant.order.model.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
+@Table(name="`user`")
 public class User {
 
     @Id
@@ -29,7 +36,9 @@ public class User {
     private LocalDateTime createdOn;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserRole role;
+
 
 
 }
