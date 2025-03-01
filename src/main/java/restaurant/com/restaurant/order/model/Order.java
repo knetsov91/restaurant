@@ -1,6 +1,7 @@
 package restaurant.com.restaurant.order.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.waiter.model.Waiter;
 
@@ -9,7 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Data
 @Entity
+@Table(name = "`order`")
 public class Order {
 
     @Id
