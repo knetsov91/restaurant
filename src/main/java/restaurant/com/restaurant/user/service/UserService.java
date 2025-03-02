@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import restaurant.com.restaurant.order.model.UserRole;
 import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.repository.UserRepository;
+import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 
 import java.time.LocalDateTime;
@@ -43,4 +44,21 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    public User login(LoginRequest loginRequest) {
+
+        Optional<User> byEmail = userRepository.findByEmail(loginRequest.getEmail());
+
+        if (byEmail.isEmpty()) {
+            throw new RuntimeException("Something went wrong");
+        }
+
+        User user = byEmail.get();
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Something went wrong");
+        }
+
+        return user;
+    }
+
 }
