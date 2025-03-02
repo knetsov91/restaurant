@@ -42,5 +42,12 @@ public class AuthenticationController {
         return new ModelAndView("redirect:/");
     }
 
+    @GetMapping("/login")
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        modelAndView.addObject("loginRequest", new LoginRequest());
 
+        return modelAndView;
+    }
 }
