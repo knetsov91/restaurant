@@ -1,14 +1,13 @@
 package restaurant.com.orderservice.web;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import restaurant.com.orderservice.order.service.OrderService;
+import restaurant.com.orderservice.web.dto.CreateOrderRequest;
 import restaurant.com.orderservice.web.dto.OrderResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
@@ -26,5 +25,11 @@ public class OrderController {
         return ResponseEntity.ok(allOrders);
     }
 
+    @PostMapping
+    public ResponseEntity<UUID> createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
+
+        UUID orderId = orderService.createOrder(createOrderRequest);
+        return ResponseEntity.ok(orderId);
+    }
 
 }
