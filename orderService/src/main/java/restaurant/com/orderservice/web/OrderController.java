@@ -9,6 +9,7 @@ import restaurant.com.orderservice.order.model.OrderStatus;
 import restaurant.com.orderservice.order.service.OrderService;
 import restaurant.com.orderservice.web.dto.CreateOrderRequest;
 import restaurant.com.orderservice.web.dto.OrderResponse;
+import restaurant.com.orderservice.web.mapper.DtoMapper;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,5 +52,15 @@ public class OrderController {
                 .status(HttpStatus.OK)
                 .build();
 
+    }
+
+    @GetMapping("/status/{orderStatus}")
+    public ResponseEntity<List<OrderResponse>> getOrdersByStatus(@PathVariable OrderStatus orderStatus) {
+        List<Order> orders = orderService.getOrdersByStatus(orderStatus);
+
+        return ResponseEntity.ok(orders
+                .stream()
+                .map(DtoMapper::mapOrderToOrderResponse)
+                .toList());
     }
 }
