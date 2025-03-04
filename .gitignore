@@ -1,37 +1,73 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+restaurant/.env
+restaurant/HELP.md
+restaurant/.gradle
+restaurant/build/
+restaurant/!gradle/wrapper/gradle-wrapper.jar
+restaurant/!**/src/main/**/build/
+restaurant/!**/src/test/**/build/
+restaurant/### STS ###
+restaurant/.apt_generated
+restaurant/.classpath
+restaurant/.factorypath
+restaurant/.project
+restaurant/.settings
+restaurant/.springBeans
+restaurant/.sts4-cache
+restaurant/bin/
+restaurant/!**/src/main/**/bin/
+restaurant/!**/src/test/**/bin/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+restaurant/.idea
+restaurant/*.iws
+restaurant/*.iml
+restaurant/*.ipr
+restaurant/out/
+restaurant/!**/src/main/**/out/
+restaurant/!**/src/test/**/out/
+restaurant/### NetBeans ###
+restaurant/nbproject/private/
+restaurant/nbbuild/
+restaurant/dist/
+restaurant/nbdist/
+restaurant/.nb-gradle/
 
 ### VS Code ###
-.vscode/
+restaurant/.vscode/
+
+
+
+
+orderService/.gradle
+orderService/build/
+orderService/!gradle/wrapper/gradle-wrapper.jar
+orderService/!**/src/main/**/build/
+orderService/!**/src/test/**/build/
+
+orderService/### STS ###
+orderService/.apt_generated
+orderService/.classpath
+orderService/.factorypath
+orderService/.project
+orderService/.settings
+orderService/.springBeans
+orderService/.sts4-cache
+orderService/bin/
+orderService/!**/src/main/**/bin/
+orderService/!**/src/test/**/bin/
+orderService/### IntelliJ IDEA ###
+orderService/.idea
+orderService/*.iws
+orderService/*.iml
+orderService/*.ipr
+orderService/out/
+orderService/!**/src/main/**/out/
+orderService/!**/src/test/**/out/
+orderService/### NetBeans ###
+orderService/nbproject/private/
+orderService/nbbuild/
+orderService/dist/
+orderService/nbdist/
+orderService/.nb-gradle/
+orderService/### VS Code ###
+orderService/.vscode/
