@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import restaurant.com.orderservice.order.model.Order;
+import restaurant.com.orderservice.order.model.OrderStatus;
 import restaurant.com.orderservice.order.repository.OrderRepository;
 import restaurant.com.orderservice.web.dto.CreateOrderRequest;
 import restaurant.com.orderservice.web.dto.OrderResponse;
@@ -52,5 +53,19 @@ public class OrderService {
                 .map(DtoMapper::mapOrderToOrderResponse)
                 .toList();
 
+    }
+
+
+    public void changeOrderStatus(UUID orderId, OrderStatus orderStatus) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+
+        if (orderOptional.isEmpty()) {
+            throw new RuntimeException("Order with id [%s] not found".formatted(orderId));
+        }
+
+        Order order = orderOptional.get();
+        order.setOrderStatus(orderStatus);
+
+        orderRepository.save(order);
     }
 }
