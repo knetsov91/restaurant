@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import restaurant.com.orderservice.order.model.Order;
 import restaurant.com.orderservice.order.repository.OrderRepository;
+import restaurant.com.orderservice.web.dto.CreateOrderRequest;
+import restaurant.com.orderservice.web.dto.OrderRequest;
 import restaurant.com.orderservice.web.dto.OrderResponse;
+import restaurant.com.orderservice.web.mapper.DtoMapper;
 
 import java.util.List;
 
@@ -22,17 +25,8 @@ public class OrderService {
         return orderRepository
                 .findAll()
                 .stream()
-                .map(this::map)
+                .map(DtoMapper::mapOrderToOrderResponse)
                 .toList();
     }
 
-    private OrderResponse map(Order order) {
-        return OrderResponse
-                .builder()
-                .price(order.getPrice())
-                .orderStatus(order.getOrderStatus())
-                .createdAt(order.getCreatedAt())
-                .finisedAt(order.getFinisedAt())
-                .build();
-    }
 }
