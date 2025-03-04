@@ -19,5 +19,9 @@ public class ControllerException {
 
     }
 
-
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public void generalHandle(HttpServletRequest request, Exception e) {
+        log.error("Exception in %s".formatted(request.getRequestURI()));
+    }
 }
