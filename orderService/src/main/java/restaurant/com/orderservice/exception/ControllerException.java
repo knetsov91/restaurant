@@ -24,4 +24,12 @@ public class ControllerException {
     public void generalHandle(HttpServletRequest request, Exception e) {
         log.error("Exception in %s".formatted(request.getRequestURI()));
     }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(OrderNotFoundException.class)
+    public void orderNotFound(HttpServletRequest request) {
+        log.error("Exception in %s".formatted(request.getRequestURI()));
+
+    }
+
 }
