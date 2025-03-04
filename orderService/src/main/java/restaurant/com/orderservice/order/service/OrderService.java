@@ -60,11 +60,13 @@ public class OrderService {
         Optional<Order> orderOptional = orderRepository.findById(orderId);
 
         if (orderOptional.isEmpty()) {
+            LOGGER.error("Order with id [%s] not found".formatted(orderId));
             throw new RuntimeException("Order with id [%s] not found".formatted(orderId));
         }
 
         Order order = orderOptional.get();
         order.setOrderStatus(orderStatus);
+        LOGGER.info("Order with id [%s] updated to %s status".formatted(orderId, orderStatus));
 
         orderRepository.save(order);
     }
