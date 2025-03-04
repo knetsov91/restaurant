@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import restaurant.com.orderservice.order.model.Order;
 import restaurant.com.orderservice.order.repository.OrderRepository;
 import restaurant.com.orderservice.web.dto.CreateOrderRequest;
-import restaurant.com.orderservice.web.dto.OrderRequest;
 import restaurant.com.orderservice.web.dto.OrderResponse;
 import restaurant.com.orderservice.web.mapper.DtoMapper;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -40,4 +40,17 @@ public class OrderService {
         return order.getId();
     }
 
+    public List<OrderResponse> getWaiterOrders(UUID waiterId) {
+
+        Optional<List<Order>> orders = orderRepository.findByWaiter(waiterId);
+        if (orders.isEmpty()) {
+            throw new RuntimeException("Orders for [%s] not found".formatted(waiterId));
+        }
+        return orders
+                .get()
+                .stream()
+                .map(DtoMapper::mapOrderToOrderResponse)
+                .toList();
+
+    }
 }
