@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Menu item create</h1>
+
+<form class="form" th:action="@{/menu/items}" th:method="post" th:object="${menuItemsRequest}">
+
+    <h3>Create menu item</h3>
+    <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+    <label for="name">Name</label>
+    <input type="text" placeholder="Name" id="name" th:field="*{name}" required>
+    <!--      <p th:if="${#fields.hasErrors('username')}" th:errors="*{name}" class="alert-warning"></p>-->
+
+    <label for="name">Price</label>
+    <input type="number" placeholder="Price" id="price" th:field="*{price}" required>
+
+    <label for="description">Description</label>
+    <textarea placeholder="description" id="description" th:field="*{description}" ></textarea>
+    <!--      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert-warning"></p>-->
+
+    <label for="imageUrl">Image URL</label>
+    <input type="text" placeholder="imageUrl" id="imageUrl" th:field="*{imagePath}" required>
+
+    <select th:field="*{menuItemType}">
+        <option th:each="item : ${T(restaurant.com.restaurant.menuitem.model.MenuItemType).values()}" th:value="${item}" th:text="${item}"></option>
+    </select>
+    <button type="submit">Add</button>
+
+</form>
+</body>
+</html>
