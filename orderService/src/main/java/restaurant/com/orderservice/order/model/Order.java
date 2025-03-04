@@ -2,7 +2,6 @@ package restaurant.com.orderservice.order.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import restaurant.com.restaurant.order.model.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -31,5 +30,8 @@ public class Order {
     @Column(nullable = false)
     LocalDateTime createdAt;
 
+    private UUID waiter;
 
+    @Transient
+    private List<UUID> menuItem;
 }
