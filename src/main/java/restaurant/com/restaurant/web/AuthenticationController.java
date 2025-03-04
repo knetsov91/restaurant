@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.service.UserService;
 import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
@@ -49,5 +50,16 @@ public class AuthenticationController {
         modelAndView.addObject("loginRequest", new LoginRequest());
 
         return modelAndView;
+    }
+
+    @PostMapping("/login")
+    public ModelAndView loginPost(LoginRequest loginRequest, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("login");
+        }
+
+        User login = userService.login(loginRequest);
+        return new ModelAndView("redirect:/");
     }
 }

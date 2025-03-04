@@ -12,16 +12,16 @@ import lombok.*;
 @NoArgsConstructor
 public class RegisterRequest {
 
-    @Email(message = "enter valid email")
-    @NotNull
+    @Email(message = "Enter valid email")
+    @NotBlank(message = "Email must not be empty")
     private String email;
 
-    @NotBlank
-    @Size(min = 6)
+    @NotBlank(message = "Password must not be empty")
+    @Size(min = 6, message = "Password should be more than 6 symbols")
     private String password;
 
-    @NotBlank
-    @Size(min = 6)
+    @NotBlank(message = "Password must not be empty")
+    @Size(min = 6, message = "Password should be more than 6 symbols")
     private String passwordConfirmation;
 
 
