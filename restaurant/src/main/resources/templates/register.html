@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
+<th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
 <form class="form" th:object="${registerRequest}" th:action="@{/register}" th:method="post">
 
     <h3>Register Here</h3>

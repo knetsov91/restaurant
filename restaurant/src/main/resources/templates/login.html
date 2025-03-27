@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
+<th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
 <form class="form" th:action="@{/login}" th:method="post" th:object="${loginRequest}">
 
     <h3>Login</h3>
@@ -15,7 +17,7 @@
 
     <label for="username">Username</label>
     <input type="text" placeholder="Email" id="email" th:field="*{email}" required>
-    <!--      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert-warning"></p>-->
+    <!--      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert-warning"></p>-->
 
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password" th:field="*{password}" required>
