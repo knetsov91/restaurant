@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import restaurant.com.restaurant.order.model.Order;
+import restaurant.com.restaurant.menu.model.Menu;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class MenuItem {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private MenuItemType menuItem;
+    private MenuItemType menuItemType;
 
     @Column(nullable = false)
     private BigDecimal price;
@@ -35,16 +36,20 @@ public class MenuItem {
     @Column
     private BigDecimal discount;
 
-    @Column
+    @Column(nullable = false)
+    private boolean inMenu;
+
+    @Column(nullable = false)
     private String description;
 
     @Column
     private String imagePath;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    private Order order;
+    private LocalDateTime updatedAt;
 
+    @ManyToOne
+    private Menu menu;
 }
