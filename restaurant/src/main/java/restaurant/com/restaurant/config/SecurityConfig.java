@@ -23,6 +23,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                     matchers.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .requestMatchers("/", "/register", "/login").permitAll()
                     .anyRequest().authenticated()
+                ).formLogin(form ->
+                        form.loginPage("/login")
+                                .usernameParameter("email")
+                                .passwordParameter("password")
+                                .defaultSuccessUrl("/home")
+                                .failureUrl("/login?error")
+                                .permitAll()
                 )
                 .build();
     }
