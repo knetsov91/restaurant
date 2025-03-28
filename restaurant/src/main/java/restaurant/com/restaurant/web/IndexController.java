@@ -13,13 +13,13 @@ public class IndexController {
     public String index() {
         return "index";
     }
- 
+
     @GetMapping("/home")
     public String home(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         UserRole userRole = authenticatedUser.getUserRole();
 
         if (userRole == UserRole.ADMIN) {
-            return "redirect:/panel";
+            return "admin-panel";
         }
         return "home";
     }
