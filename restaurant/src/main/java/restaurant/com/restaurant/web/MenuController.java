@@ -1,16 +1,15 @@
 package restaurant.com.restaurant.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
-
 import java.util.List;
 
 @Controller
-@RequestMapping("/menus")
 public class MenuController {
 
     private MenuService menuService;
@@ -19,7 +18,7 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @GetMapping
+    @GetMapping("/menus")
     public ModelAndView getAllMenus() {
         List<Menu> allMenus = menuService.getAllMenus();
 
@@ -30,4 +29,13 @@ public class MenuController {
         return modelAndView;
     }
 
+    @GetMapping("/restaurants/{restaurantId}/menus")
+    public ModelAndView getAllRestaurantMenus(@PathVariable(name = "restaurantId") Long restaurantId, Model model) {
+
+        List<Menu> menus = menuService.getMenusByRestaurantId(restaurantId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("menus", menus);
+        modelAndView.setViewName("menus");
+        return modelAndView;
+    }
 }
