@@ -13,22 +13,16 @@ public class EmployeeInfo {
     private Long id;
 
     @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
     private int age;
+
+    @Column(nullable = false)
+    private boolean isPasswordChanged;
 
     @Column(nullable = false)
     private LocalDateTime hireDate;
 
     @Column(nullable = false)
     private BigDecimal salary;
-
-    @Column(nullable = false)
-    private boolean active;
 
     private LocalDateTime releaseDate;
 
