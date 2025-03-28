@@ -10,12 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.service.MenuItemService;
 import restaurant.com.restaurant.web.dto.MenuItemsRequest;
-import restaurant.com.restaurant.web.dto.RegisterRequest;
-
 import java.util.List;
 
 @Controller
-@RequestMapping("/menu")
+@RequestMapping("/menu-items")
 public class MenuItemController {
 
     private MenuItemService menuItemService;
@@ -25,32 +23,26 @@ public class MenuItemController {
         this.menuItemService = menuItemService;
     }
 
-    @GetMapping("/items")
+    @GetMapping
     public ModelAndView getItems() {
-
         List<MenuItem> items = menuItemService.findAll();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("menu-items");
         modelAndView.addObject("items", items);
         return modelAndView;
-
     }
 
-    @GetMapping("/items/create")
+    @GetMapping("/create")
     public ModelAndView createItem() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("menu-items-create");
         modelAndView.addObject("items", List.of());
         modelAndView.addObject("menuItemsRequest", MenuItemsRequest.builder().build());
         return modelAndView;
-
     }
 
-
-
-    @PostMapping("/items")
+    @PostMapping
     public ModelAndView postItems(MenuItemsRequest menuItemsRequest, BindingResult bindingResult) {
-
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
                     return new ModelAndView("menu-items-create");
