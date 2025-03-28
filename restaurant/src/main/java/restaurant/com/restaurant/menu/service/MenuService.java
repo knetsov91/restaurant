@@ -39,4 +39,8 @@ public class MenuService {
 
         return menu.orElseThrow(() -> new RuntimeException("Restaurant with id " + RestaurantId + " not found"));
     }
+
+    public Menu getMenuById(Long id) {
+        return menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu with id " + id + " not found"));
+    }
 }
