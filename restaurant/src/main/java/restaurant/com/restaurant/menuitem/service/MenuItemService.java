@@ -19,11 +19,11 @@ public class MenuItemService {
         this.menuItemRepository = menuItemRepository;
     }
 
-    public List<MenuItem> findAll() {
+    public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
     }
 
-    public void create(MenuItemsRequest menuItem) {
+    public void createMenuItem(MenuItemsRequest menuItem) {
 
         menuItemRepository.save(map(menuItem));
     }
@@ -33,7 +33,7 @@ public class MenuItemService {
         return MenuItem
                 .builder()
                 .name(menuItemsRequest.getName())
-                .menuItem(menuItemsRequest.getMenuItemType())
+                .menuItemType(menuItemsRequest.getMenuItemType())
                 .price(menuItemsRequest.getPrice())
                 .discount(menuItemsRequest.getDiscount())
                 .createdAt(LocalDateTime.now())

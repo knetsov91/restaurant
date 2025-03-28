@@ -25,7 +25,7 @@ public class MenuItemController {
 
     @GetMapping
     public ModelAndView getItems() {
-        List<MenuItem> items = menuItemService.findAll();
+        List<MenuItem> items = menuItemService.getAllMenuItems();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("menu-items");
         modelAndView.addObject("items", items);
@@ -48,7 +48,7 @@ public class MenuItemController {
                     return new ModelAndView("menu-items-create");
         }
 
-        menuItemService.create(menuItemsRequest);
+        menuItemService.createMenuItem(menuItemsRequest);
         return new ModelAndView("redirect:/menu/items");
     }
 }
