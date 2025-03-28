@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <a th:href="/restaurants/create">Create </a>
+        <table>
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Address</td>
+                <td>Capacity</td>
+                <td>Created</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="restaurant : ${restaurants}">
+                    <td th:text="${restaurant.getName()}"></td>
+                    <td th:text="${restaurant.getAddress()}"></td>
+                    <td th:text="${restaurant.getCapacity()}"></td>
+                    <td th:text="${restaurant.getCreatedAt()}"></td>
+                </tr>
+            </tbody>
+        </table>
+</body>
+</html>
