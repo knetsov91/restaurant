@@ -1,16 +1,33 @@
 package restaurant.com.restaurant.web;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import restaurant.com.restaurant.user.model.User;
+import restaurant.com.restaurant.user.service.UserService;
+import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping
-    public ResponseEntity<String> getUsers() {
-        return ResponseEntity.ok("Users");
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getUsers() {
+        List<User> allUsers = userService.getAllUsers();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        modelAndView.addObject("users", allUsers);
+
+        return modelAndView;
     }
 }
