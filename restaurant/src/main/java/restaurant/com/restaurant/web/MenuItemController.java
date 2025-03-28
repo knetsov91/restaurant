@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.service.MenuItemService;
-import restaurant.com.restaurant.web.dto.MenuItemsRequest;
+import restaurant.com.restaurant.web.dto.CreateMenuItemRequest;
 import java.util.List;
 
 @Controller
@@ -37,18 +37,18 @@ public class MenuItemController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("menu-items-create");
         modelAndView.addObject("items", List.of());
-        modelAndView.addObject("menuItemsRequest", MenuItemsRequest.builder().build());
+        modelAndView.addObject("createMenuItemRequest", CreateMenuItemRequest.builder().build());
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView postItems(MenuItemsRequest menuItemsRequest, BindingResult bindingResult) {
+    public ModelAndView postItems(CreateMenuItemRequest createMenuItemRequest, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
                     return new ModelAndView("menu-items-create");
         }
 
-        menuItemService.createMenuItem(menuItemsRequest);
+        menuItemService.createMenuItem(createMenuItemRequest);
         return new ModelAndView("redirect:/menu/items");
     }
 }
