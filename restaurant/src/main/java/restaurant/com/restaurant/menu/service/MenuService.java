@@ -6,6 +6,7 @@ import restaurant.com.restaurant.menu.repository.MenuRepository;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MenuService {
@@ -26,5 +27,9 @@ public class MenuService {
         menu.setCreatedAt(LocalDateTime.now());
 
         menuRepository.save(menu);
+    }
+
+    public List<Menu> getAllMenus() {
+        return menuRepository.findAll();
     }
 }
