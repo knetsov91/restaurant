@@ -16,6 +16,7 @@
                 <td>Address</td>
                 <td>Capacity</td>
                 <td>Created</td>
+                <td></td>
             </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                     <td th:text="${restaurant.getAddress()}"></td>
                     <td th:text="${restaurant.getCapacity()}"></td>
                     <td th:text="${restaurant.getCreatedAt()}"></td>
+                    <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/menus'}">Menus</a></td>
                 </tr>
             </tbody>
         </table>
