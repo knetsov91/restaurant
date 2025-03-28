@@ -7,6 +7,7 @@ import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MenuService {
@@ -31,5 +32,11 @@ public class MenuService {
 
     public List<Menu> getAllMenus() {
         return menuRepository.findAll();
+    }
+
+    public List<Menu> getMenusByRestaurantId(Long RestaurantId) {
+        Optional<List<Menu>> menu =  menuRepository.findByRestaurantId(RestaurantId);
+
+        return menu.orElseThrow(() -> new RuntimeException("Restaurant with id " + RestaurantId + " not found"));
     }
 }
