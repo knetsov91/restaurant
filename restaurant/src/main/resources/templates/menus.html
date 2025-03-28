@@ -8,6 +8,8 @@
     <title>Menus</title>
 </head>
 <body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
     <h1>Menus</h1>
     <table>
         <thead>
@@ -23,7 +25,7 @@
                 <td th:text="${menu.restaurant.getName()}"></td>
                 <td th:text="${menu.getTitle()}"></td>
                 <td th:text="${menu.getCreatedAt()}"></td>
-                <td></td>
+                <td><a th:href="@{'/menus/' + ${menu.id}}">Open</a></td>
             </tr>
         </tbody>
     </table>

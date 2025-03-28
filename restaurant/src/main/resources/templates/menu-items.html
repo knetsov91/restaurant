@@ -8,16 +8,19 @@
     <title>Document</title>
 </head>
 <body>
-<h1>Menu</h1>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
 
-<ul>
-    <li th:each="item : ${items}">
-        <div th:text="${item.name}"></div>
-        <div th:text="${item.price}"></div>
-        <div th:text="${item.description}"></div>
-        <div th:text="${item.createdAt}"></div>
-        <div > <img th:src="${#strings.isEmpty(item.getImagePath()) ? 'https://www.baeldung.com/wp-content/themes/baeldung/icon/logo.svg' : item.getImagePath()}"</div>
-    </li>
-</ul>
+    <a th:href="@{/menu-items/create}">Create</a>
+    <h1>Menu</h1>
+
+    <ul>
+        <li th:each="item : ${items}">
+            <div th:text="${item.name}"></div>
+            <div th:text="${item.price}"></div>
+            <div th:text="${item.description}"></div>
+            <div th:text="${item.createdAt}"></div>
+            <div> <img th:src="${#strings.isEmpty(item.getImagePath()) ? 'https://www.baeldung.com/wp-content/themes/baeldung/icon/logo.svg' : item.getImagePath()}"</div>
+        </li>
+    </ul>
 </body>
 </html>
