@@ -1,18 +1,16 @@
 package restaurant.com.restaurant.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import restaurant.com.restaurant.security.SecurityInterceptor;
 
-
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig implements WebMvcConfigurer {
 
@@ -27,10 +25,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                         form.loginPage("/login")
                                 .usernameParameter("email")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/home")
+                                .defaultSuccessUrl("/home", true)
                                 .failureUrl("/login?error")
                                 .permitAll()
-                )
+                ).logout(logout ->
+                        logout.invalidateHttpSession(true)
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                                .logoutSuccessUrl("/"))
                 .build();
     }
 }
