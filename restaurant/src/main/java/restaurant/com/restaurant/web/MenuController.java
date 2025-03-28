@@ -38,4 +38,16 @@ public class MenuController {
         modelAndView.setViewName("menus");
         return modelAndView;
     }
+
+    @GetMapping("/menus/{menuId}")
+    public ModelAndView getMenu(@PathVariable(name="menuId") Long menuId) {
+        Menu menu = menuService.getMenuById(menuId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("menu");
+        modelAndView.addObject("menu", menu);
+
+        return modelAndView;
+
+    }
 }
