@@ -11,8 +11,11 @@
     <h1>Add new restaurant</h1>
     <form th:action="@{/restaurants}" th:method="POST" th:object="${createRestaurantRequest}">
         <input type="text" placeholder="Name" th:field="*{name}" />
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         <input type="text" placeholder="Address" th:field="*{address}" />
+        <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
         <input type="number" placeholder="Capacity" th:field="*{capacity}" />
+        <span th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></span>
         <button>Add</button>
     </form>
 </body>
