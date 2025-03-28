@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create restaurant</title>
+</head>
+<body>
+    <h1>Add new restaurant</h1>
+    <form th:action="@{/restaurants}" th:method="POST" th:object="${createRestaurantRequest}">
+        <input type="text" placeholder="Name" th:field="*{name}" />
+        <input type="text" placeholder="Address" th:field="*{address}" />
+        <input type="number" placeholder="Capacity" th:field="*{capacity}" />
+        <button>Add</button>
+    </form>
+</body>
+</html>
