@@ -28,4 +28,10 @@ public class RestaurantService {
     public List<Restaurant> getRestaurants() {
         return restaurantRepository.findAll();
     }
+
+    public Restaurant getRestaurantById(Long restaurantId) {
+        return restaurantRepository
+                .findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Restaurant with id " + restaurantId + " not found"));
+    }
 }
