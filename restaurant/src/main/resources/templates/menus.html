@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Menus</title>
+</head>
+<body>
+    <h1>Menus</h1>
+    <table>
+        <thead>
+        <tr>
+            <td>Restaurant</td>
+            <td>Title</td>
+            <td>Date created</td>
+        </tr>
+
+        </thead>
+        <tbody>
+            <tr th:each="menu : ${menus}">
+                <td th:text="${menu.restaurant.getName()}"></td>
+                <td th:text="${menu.getTitle()}"></td>
+                <td th:text="${menu.getCreatedAt()}"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
