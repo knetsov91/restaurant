@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{'/employees'}" th:method="POST" th:object="${createEmployeeRequest}">
+
+        <input type="email" placeholder="Email" th:field="*{email}" />
+        <input type="password" placeholder="Password"  th:field="*{password}"/>
+        <input type="text" placeholder="First name" th:field="*{firstName}"/>
+        <input type="text" placeholder="Last name" th:field="*{lastName}" />
+        <input type="text" placeholder="Age" th:filed="*{age}" />
+        <input type="number" placeholder="Salary" th:field="*{salary}" />
+        <button>Create</button>
+    </form>
+</body>
+</html>
