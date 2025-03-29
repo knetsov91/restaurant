@@ -15,8 +15,8 @@ public class Customer {
 
     private String phoneNumber;
 
-    @OneToOne
-    @JoinColumn(name="user_id")
+    @OneToOne(optional = false)
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "client")
