@@ -29,6 +29,7 @@ public class DtoMapper {
     }
 
     public static User mapCreateUserRequestToUser(CreateUserRequest createUserRequest) {
+
         return User
                 .builder()
                 .firstName(createUserRequest.getFirstName())
@@ -36,5 +37,13 @@ public class DtoMapper {
                 .email(createUserRequest.getEmail())
                 .password(createUserRequest.getPassword())
                 .build();
+    }
+
+    public static CreateEmployeeInfoRequest mapCreateEmployeeRequestToCreateEmployeeInfoRequest(CreateEmployeeRequest createEmployeeRequest) {
+        CreateEmployeeInfoRequest createEmployeeInfoRequest = new CreateEmployeeInfoRequest();
+        createEmployeeInfoRequest.setAge(createEmployeeRequest.getAge());
+        createEmployeeInfoRequest.setSalary(createEmployeeRequest.getSalary());
+
+        return createEmployeeInfoRequest;
     }
 }
