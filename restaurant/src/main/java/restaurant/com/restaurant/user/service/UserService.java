@@ -50,6 +50,7 @@ public class UserService implements UserDetailsService {
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .createdOn(LocalDateTime.now())
+                .isActive(false)
                 .build();
 
         userRepository.save(user);
