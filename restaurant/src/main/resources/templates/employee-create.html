@@ -32,8 +32,11 @@
             <option th:each="r : ${T(restaurant.com.restaurant.employee.model.EmployeeType).values()}" th:value="${r}" th:text="${r}"></option>
         </select>
 
-        <p class="alert-warning" th:if="${#fields.hasErrors('salary')}" th:errors="*{role}"></p>
 
+        <p class="alert-warning" th:if="${#fields.hasErrors('employeeType')}" th:errors="*{employeeType}"></p>
+        <select th:field="*{restaurantId}">
+            <option th:each="restaurant : ${restaurants}" th:text="${restaurant.name}" th:value="${restaurant.getId()}"></option>
+        </select>
         <button>Create</button>
     </form>
 </body>
