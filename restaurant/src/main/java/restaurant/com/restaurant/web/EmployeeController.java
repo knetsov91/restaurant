@@ -36,6 +36,15 @@ public class EmployeeController {
         return modelAndView;
     }
 
+    @PostMapping
+    public ModelAndView createEmployee(@Valid CreateEmployeeRequest createEmployeeRequest, @AuthenticationPrincipal AuthenticatedUser authenticatedUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("employee-create");
+        }
+        employeeService.createEmployee(createEmployeeRequest);
+        return new ModelAndView("redirect:/employees");
+    }
+
     @GetMapping("/create")
     public ModelAndView createEmployee() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
