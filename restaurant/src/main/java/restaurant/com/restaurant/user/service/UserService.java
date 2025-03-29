@@ -17,6 +17,7 @@ import restaurant.com.restaurant.web.AuthenticationController;
 import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -79,5 +80,9 @@ public class UserService implements UserDetailsService {
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(user.getEmail(), user.getPassword(), user.isActive(), user.getRole());
 
         return authenticatedUser;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
