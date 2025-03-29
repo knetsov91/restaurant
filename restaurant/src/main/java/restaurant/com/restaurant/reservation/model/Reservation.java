@@ -1,7 +1,8 @@
 package restaurant.com.restaurant.reservation.model;
 
 import jakarta.persistence.*;
-import restaurant.com.restaurant.client.model.Client;
+import restaurant.com.restaurant.customer.model.Customer;
+import restaurant.com.restaurant.restaurant.model.Restaurant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class Reservation {
     private UUID id;
 
     @Column(nullable = false)
-    private int quantity;
+    private int customers_number;
 
     @Column(nullable = false)
     private LocalDateTime reservationDate;
@@ -25,5 +26,8 @@ public class Reservation {
     private String phoneNumber;
 
     @ManyToOne
-    private Client client;
+    private Customer client;
+
+    @ManyToOne(optional = false)
+    private Restaurant restaurant;
 }
