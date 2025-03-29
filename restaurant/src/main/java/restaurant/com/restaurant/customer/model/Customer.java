@@ -1,4 +1,4 @@
-package restaurant.com.restaurant.client.model;
+package restaurant.com.restaurant.customer.model;
 
 import jakarta.persistence.*;
 import restaurant.com.restaurant.reservation.model.Reservation;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Client {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
