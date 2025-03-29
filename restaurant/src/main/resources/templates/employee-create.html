@@ -11,11 +11,23 @@
     <form th:action="@{'/employees'}" th:method="POST" th:object="${createEmployeeRequest}">
 
         <input type="email" placeholder="Email" th:field="*{email}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
         <input type="password" placeholder="Password"  th:field="*{password}"/>
+        <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+
         <input type="text" placeholder="First name" th:field="*{firstName}"/>
+        <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+
         <input type="text" placeholder="Last name" th:field="*{lastName}" />
-        <input type="text" placeholder="Age" th:filed="*{age}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+
+        <input type="number" placeholder="Age" th:filed="*{age}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+
         <input type="number" placeholder="Salary" th:field="*{salary}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+
         <button>Create</button>
     </form>
 </body>
