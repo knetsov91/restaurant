@@ -1,13 +1,19 @@
 package restaurant.com.restaurant.employee.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.user.model.User;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 public class Employee {
