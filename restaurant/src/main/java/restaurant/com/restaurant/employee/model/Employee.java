@@ -2,8 +2,10 @@ package restaurant.com.restaurant.employee.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import restaurant.com.restaurant.employeeInfo.model.EmployeeInfo;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
+import restaurant.com.restaurant.user.model.User;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -18,10 +20,22 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeType employeeType;
 
-    @OneToOne
-    @JoinColumn(nullable = false, name = "employeeInfoId")
-    private EmployeeInfo employeeInfo;
+    @Column(nullable = false)
+    private int age;
 
-    @ManyToOne
+    @Column(nullable = false)
+    private LocalDateTime hireDate;
+
+    @Column(nullable = false)
+    private BigDecimal salary;
+
+    private LocalDateTime releaseDate;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private Restaurant restaurant;
 }
