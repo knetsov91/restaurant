@@ -1,8 +1,6 @@
 package restaurant.com.restaurant.web.mapper;
 
-import restaurant.com.restaurant.employeeInfo.model.EmployeeInfo;
 import restaurant.com.restaurant.user.model.User;
-import restaurant.com.restaurant.web.dto.CreateEmployeeInfoRequest;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
 import restaurant.com.restaurant.web.dto.CreateUserRequest;
 
@@ -19,15 +17,6 @@ public class DtoMapper {
                 .build();
     }
 
-    public static EmployeeInfo mapCreateEmployeeInfoRequestToEmployeeInfo(CreateEmployeeInfoRequest createEmployeeInfoRequest) {
-
-        return EmployeeInfo
-                .builder()
-                .age(createEmployeeInfoRequest.getAge())
-                .salary(createEmployeeInfoRequest.getSalary())
-                .build();
-    }
-
     public static User mapCreateUserRequestToUser(CreateUserRequest createUserRequest) {
 
         return User
@@ -37,13 +26,5 @@ public class DtoMapper {
                 .email(createUserRequest.getEmail())
                 .password(createUserRequest.getPassword())
                 .build();
-    }
-
-    public static CreateEmployeeInfoRequest mapCreateEmployeeRequestToCreateEmployeeInfoRequest(CreateEmployeeRequest createEmployeeRequest) {
-        CreateEmployeeInfoRequest createEmployeeInfoRequest = new CreateEmployeeInfoRequest();
-        createEmployeeInfoRequest.setAge(createEmployeeRequest.getAge());
-        createEmployeeInfoRequest.setSalary(createEmployeeRequest.getSalary());
-
-        return createEmployeeInfoRequest;
     }
 }
