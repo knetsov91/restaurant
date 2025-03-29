@@ -1,9 +1,9 @@
 package restaurant.com.restaurant.web.mapper;
 
 import restaurant.com.restaurant.employeeInfo.model.EmployeeInfo;
+import restaurant.com.restaurant.web.dto.CreateEmployeeInfoRequest;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
 import restaurant.com.restaurant.web.dto.CreateUserRequest;
-import java.time.LocalDateTime;
 
 public class DtoMapper {
 
@@ -18,14 +18,12 @@ public class DtoMapper {
                 .build();
     }
 
-
-    public static EmployeeInfo mapCreateEmployeeRequestToEmployeeInfo(CreateEmployeeRequest createEmployeeRequest) {
+    public static EmployeeInfo mapCreateEmployeeInfoRequestToEmployeeInfo(CreateEmployeeInfoRequest createEmployeeInfoRequest) {
 
         return EmployeeInfo
                 .builder()
-                .age(createEmployeeRequest.getAge())
-                .salary(createEmployeeRequest.getSalary())
-                .hireDate(LocalDateTime.now())
+                .age(createEmployeeInfoRequest.getAge())
+                .salary(createEmployeeInfoRequest.getSalary())
                 .build();
     }
 }
