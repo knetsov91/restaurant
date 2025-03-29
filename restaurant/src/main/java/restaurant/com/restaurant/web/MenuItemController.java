@@ -1,5 +1,6 @@
 package restaurant.com.restaurant.web;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,20 +36,20 @@ public class MenuItemController {
     @GetMapping("/create")
     public ModelAndView createItem() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menu-items-create");
+        modelAndView.setViewName("menu-item-create");
         modelAndView.addObject("items", List.of());
         modelAndView.addObject("createMenuItemRequest", CreateMenuItemRequest.builder().build());
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView postItems(CreateMenuItemRequest createMenuItemRequest, BindingResult bindingResult) {
+    public ModelAndView postItems(@Valid CreateMenuItemRequest createMenuItemRequest, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-                    return new ModelAndView("menu-items-create");
+                    return new ModelAndView("menu-item-create");
         }
 
         menuItemService.createMenuItem(createMenuItemRequest);
-        return new ModelAndView("redirect:/menu/items");
+        return new ModelAndView("redirect:/menu-items");
     }
 }
