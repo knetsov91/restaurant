@@ -31,4 +31,6 @@ public class CreateEmployeeRequest {
 
     @NotNull
     private EmployeeType employeeType;
+
+    private Long restaurantId;
 }
