@@ -3,8 +3,9 @@ package restaurant.com.restaurant.restaurant.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
-import restaurant.com.restaurant.kitchen.model.Kitchen;
+import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.menu.model.Menu;
+import restaurant.com.restaurant.reservation.model.Reservation;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,10 +25,13 @@ public class Restaurant {
 
     private LocalDate createdAt;
 
-    @OneToOne(mappedBy = "restaurant")
-    private Kitchen kitchen;
-
     @OneToMany(mappedBy = "restaurant")
     @ToString.Exclude
     private List<Menu> menus;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Employee> employees;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Reservation> reservation;
 }
