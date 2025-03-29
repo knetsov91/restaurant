@@ -22,11 +22,17 @@
         <input type="text" placeholder="Last name" th:field="*{lastName}" />
         <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
 
-        <input type="number" placeholder="Age" th:filed="*{age}" />
+        <input type="number" placeholder="Age" th:field="*{age}" />
         <p class="alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
 
         <input type="number" placeholder="Salary" th:field="*{salary}" />
         <p class="alert-warning" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+
+        <select th:field="*{employeeType}">
+            <option th:each="r : ${T(restaurant.com.restaurant.employee.model.EmployeeType).values()}" th:value="${r}" th:text="${r}"></option>
+        </select>
+
+        <p class="alert-warning" th:if="${#fields.hasErrors('salary')}" th:errors="*{role}"></p>
 
         <button>Create</button>
     </form>
