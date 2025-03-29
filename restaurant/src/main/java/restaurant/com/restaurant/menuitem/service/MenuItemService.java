@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.repository.MenuItemRepository;
-import restaurant.com.restaurant.web.dto.MenuItemsRequest;
-
-import java.time.LocalDateTime;
+import restaurant.com.restaurant.web.dto.CreateMenuItemRequest;
+import restaurant.com.restaurant.web.mapper.DtoMapper;
 import java.util.List;
 
 @Service
@@ -23,23 +22,9 @@ public class MenuItemService {
         return menuItemRepository.findAll();
     }
 
-    public void createMenuItem(MenuItemsRequest menuItem) {
+    public void createMenuItem(CreateMenuItemRequest menuItem) {
+        MenuItem mapped = DtoMapper.mapCreateMenuItemRequestToMenuItem(menuItem);
 
-        menuItemRepository.save(map(menuItem));
-    }
-
-
-    private MenuItem map(MenuItemsRequest menuItemsRequest) {
-        return MenuItem
-                .builder()
-                .name(menuItemsRequest.getName())
-                .menuItemType(menuItemsRequest.getMenuItemType())
-                .price(menuItemsRequest.getPrice())
-                .discount(menuItemsRequest.getDiscount())
-                .createdAt(LocalDateTime.now())
-                .description(menuItemsRequest.getDescription())
-                .imagePath(menuItemsRequest.getImagePath())
-                .discount(menuItemsRequest.getDiscount())
-                .build();
+        menuItemRepository.save(mapped);
     }
 }
