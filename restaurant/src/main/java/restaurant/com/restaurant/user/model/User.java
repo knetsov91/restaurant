@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name="`user`")
-public class User {
+public class  User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,6 +28,10 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    private boolean passwordChanged;
+
+    private LocalDateTime passwordChangedAt;
 
     private boolean isActive;
 
