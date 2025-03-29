@@ -1,5 +1,6 @@
 package restaurant.com.restaurant.web.mapper;
 
+import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
@@ -8,6 +9,15 @@ import restaurant.com.restaurant.web.dto.CreateUserRequest;
 import java.time.LocalDateTime;
 
 public class DtoMapper {
+
+    public static Employee mapCreateEmployeeRequestToEmployee(CreateEmployeeRequest createEmployeeRequest) {
+        return Employee
+                .builder()
+                .age(createEmployeeRequest.getAge())
+                .employeeType(createEmployeeRequest.getEmployeeType())
+                .salary(createEmployeeRequest.getSalary())
+                .build();
+    }
 
     public static CreateUserRequest mapCreateEmployeeRequestToCreateUserRequest(CreateEmployeeRequest createUserRequest) {
 
