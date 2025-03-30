@@ -6,6 +6,7 @@ import restaurant.com.restaurant.employee.repository.EmployeeRepository;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.user.model.User;
+import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.service.UserService;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
 import restaurant.com.restaurant.web.dto.CreateUserRequest;
@@ -33,6 +34,8 @@ public class EmployeeService {
     public void createEmployee(CreateEmployeeRequest createEmployeeRequest) {
 
         CreateUserRequest createUserRequest = DtoMapper.mapCreateEmployeeRequestToCreateUserRequest(createEmployeeRequest);
+        createUserRequest.setRole(UserRole.EMPLOYEE);
+
         User user = userService.createUser(createUserRequest);
 
         Restaurant restaurant = restaurantService.getRestaurantById(createEmployeeRequest.getRestaurantId());
