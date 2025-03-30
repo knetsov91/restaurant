@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.repository.MenuRepository;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
-import restaurant.com.restaurant.restaurant.service.RestaurantService;
+import restaurant.com.restaurant.restaurant.service.RestaurantService;import restaurant.com.restaurant.web.dto.CreateMenuRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +20,12 @@ public class MenuService {
         this.restaurantService = restaurantService;
     }
 
-    public void createMenu(Long restaurantId) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+    public void createMenu(CreateMenuRequest createMenuRequest) {
+        Restaurant restaurant = restaurantService.getRestaurantById(createMenuRequest.getRestaurantId());
 
         Menu menu = new Menu();
         menu.setRestaurant(restaurant);
+        menu.setTitle(createMenuRequest.getTitle());
         menu.setCreatedAt(LocalDateTime.now());
 
         menuRepository.save(menu);
