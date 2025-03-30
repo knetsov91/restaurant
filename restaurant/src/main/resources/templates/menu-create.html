@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/menus}" th:object="${createMenuRequest}">
+        <input type="text" th:field="*{title}">
+
+        <select th:field="*{restaurantId}">
+            <option th:each="restaurant : ${restaurants}" th:text="${restaurant.name}" th:value="${restaurant.getId()}"></option>
+        </select>
+        <button>Create</button>
+    </form>
+</body>
+</html>
