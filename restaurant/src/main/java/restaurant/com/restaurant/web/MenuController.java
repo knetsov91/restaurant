@@ -1,8 +1,10 @@
 package restaurant.com.restaurant.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
@@ -53,6 +55,19 @@ public class MenuController {
         modelAndView.addObject("restaurants", restaurants);
 
         return modelAndView;
+    }
+
+    @PostMapping("/menus")
+    public ModelAndView createMenu(CreateMenuRequest createMenuRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<Restaurant> restaurants = restaurantService.getRestaurants();
+            ModelAndView modelAndView = new ModelAndView("menu-create");
+            modelAndView.addObject("restaurants", restaurants);
+
+            return modelAndView;
+        }
+        menuService.createMenu(createMenuRequest);
+        return new ModelAndView("redirect:/menu-items");
     }
 
     @GetMapping("/menus/{menuId}")
