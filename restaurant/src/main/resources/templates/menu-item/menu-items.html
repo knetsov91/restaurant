@@ -11,16 +11,16 @@
     <th:block th:insert="fragments/navbar :: navbar" ></th:block>
 
     <a th:href="@{/menu-items/create}">Create</a>
-    <h1>Menu</h1>
+    <h1>Menu items</h1>
 
-    <ul>
-        <li th:each="item : ${items}">
+    <div class="menu-items-container">
+        <div th:each="item : ${items}">
             <div th:text="${item.name}"></div>
             <div th:text="${item.price}"></div>
             <div th:text="${item.description}"></div>
             <div th:text="${item.createdAt}"></div>
-            <div> <img th:src="${#strings.isEmpty(item.getImagePath()) ? 'https://www.baeldung.com/wp-content/themes/baeldung/icon/logo.svg' : item.getImagePath()}"</div>
-        </li>
-    </ul>
+            <div> <img th:src="${#strings.isEmpty(item.getImagePath()) ? 'https://dev.bg/wp-content/uploads/2019/05/dreamix-logo_colour-black-new-one-79x40.png' : item.getImagePath()}" /></div>
+        </div>
+    </div>
 </body>
 </html>
