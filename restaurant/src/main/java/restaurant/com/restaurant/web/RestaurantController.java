@@ -36,7 +36,7 @@ public class RestaurantController {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("restaurants");
+        modelAndView.setViewName("restaurant/restaurants");
         modelAndView.addObject("restaurants", restaurants);
 
         return modelAndView;
@@ -46,7 +46,7 @@ public class RestaurantController {
     public ModelAndView addRestaurant(@Valid CreateRestaurantRequest createRestaurantRequest, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("restaurant-create");
+            return new ModelAndView("restaurant/restaurant-create");
         }
         restaurantService.createRestaurant(createRestaurantRequest);
 
@@ -55,11 +55,12 @@ public class RestaurantController {
 
     @GetMapping("/{restaurantId}/menus")
     public ModelAndView getAllRestaurantMenus(@PathVariable(name = "restaurantId") Long restaurantId) {
+        List<Menu> menus = restaurantService.getRestaurantMenus(restaurantId);
 
-        List<Menu> menus = menuService.getMenusByRestaurantId(restaurantId);
         ModelAndView modelAndView = new ModelAndView();
+
         modelAndView.addObject("menus", menus);
-        modelAndView.setViewName("menus");
+        modelAndView.setViewName("restaurant/restaurant-menus");
         return modelAndView;
     }
 
@@ -70,7 +71,7 @@ public class RestaurantController {
         List<Employee> employees =  restaurantService.getRestaurantEmployees(restaurantId);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("restaurant-employees");
+        modelAndView.setViewName("restaurant/restaurant-employees");
         modelAndView.addObject("employees", employees);
         modelAndView.addObject("restaurantName", restaurant.getName());
 
@@ -80,7 +81,7 @@ public class RestaurantController {
     @GetMapping("/create")
     public ModelAndView addRestaurant() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("restaurant-create");
+        modelAndView.setViewName("restaurant/restaurant-create");
         modelAndView.addObject("createRestaurantRequest", new CreateRestaurantRequest());
 
         return modelAndView;
