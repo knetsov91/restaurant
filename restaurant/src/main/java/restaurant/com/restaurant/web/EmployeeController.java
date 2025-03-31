@@ -5,15 +5,18 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.config.AuthenticatedUser;
+import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/employees")
@@ -31,7 +34,6 @@ public class EmployeeController {
     public ModelAndView getEmployees() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("employees");
-
 
         return modelAndView;
     }
@@ -55,4 +57,13 @@ public class EmployeeController {
         return modelAndView;
     }
 
+    @GetMapping("/{employeeId}")
+    public ModelAndView getEmployee(@PathVariable UUID employeeId) {
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("employee-view");
+        modelAndView.addObject("employee", employee);
+
+        return modelAndView;
+    }
 }
