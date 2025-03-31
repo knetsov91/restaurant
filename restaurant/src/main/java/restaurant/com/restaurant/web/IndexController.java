@@ -29,7 +29,7 @@ public class IndexController {
             case OWNER:
                 return "owner-panel";
             case EMPLOYEE:
-                return "employee-panel";
+                return "redirect:/employees/panel";
             default:
                 return "redirect:/home";
         }
