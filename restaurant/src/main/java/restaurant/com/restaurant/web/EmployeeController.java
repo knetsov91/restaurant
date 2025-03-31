@@ -32,9 +32,10 @@ public class EmployeeController {
 
     @GetMapping
     public ModelAndView getEmployees() {
+        List<Employee> employees =  employeeService.getAllEmployees();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("employee/employees");
-
+        modelAndView.addObject("employees", employees);
         return modelAndView;
     }
 
