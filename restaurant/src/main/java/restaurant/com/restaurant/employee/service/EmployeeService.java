@@ -53,4 +53,8 @@ public class EmployeeService {
         return employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new RuntimeException("Employee with id " + employeeId + " not found"));
     }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
 }
