@@ -15,6 +15,7 @@ import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateMenuRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/menus")
@@ -75,6 +76,11 @@ public class MenuController {
         modelAndView.addObject("allMenuItems", allMenuItems);
 
         return modelAndView;
+    }
+    @PostMapping("/{menuId}/menu-items/{menuItemId}")
+    public ModelAndView addMenuItemToMenu(@PathVariable Long menuId, @PathVariable UUID menuItemId) {
+        menuService.addMenuItem(menuItemId, menuId);
+        return new ModelAndView("redirect:/menus/" + menuId);
     }
 
     @GetMapping("/{menuId}")
