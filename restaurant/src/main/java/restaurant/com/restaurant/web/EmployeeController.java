@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.config.AuthenticatedUser;
 import restaurant.com.restaurant.employee.model.Employee;
+import restaurant.com.restaurant.employee.model.EmployeeType;
 import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
@@ -28,6 +29,16 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService, RestaurantService restaurantService) {
         this.employeeService = employeeService;
         this.restaurantService = restaurantService;
+    }
+
+    @GetMapping("/panel")
+    public ModelAndView employeePanel(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+        Employee employee = employeeService.getEmployeeByUserId(authenticatedUser.getEmail());
+        ModelAndView modelAndView = new ModelAndView();
+        String view = resolveTemplate(employee.getEmployeeType());
+        modelAndView.setViewName(view);
+
+        return modelAndView;
     }
 
     @GetMapping
@@ -66,5 +77,13 @@ public class EmployeeController {
         modelAndView.addObject("employee", employee);
 
         return modelAndView;
+    }
+
+    private static String resolveTemplate(EmployeeType type) {
+        return switch (type) {
+            case MANAGER -> "employee/manager-panel";
+            case WAITER -> "employee/waiter-panel";
+            default -> throw new IllegalStateException("Unsupported employee type: " + type);
+        };
     }
 }
