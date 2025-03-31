@@ -14,17 +14,24 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/home")
-    public String home(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+    @GetMapping("/panel")
+    public String resolve(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         UserRole userRole = authenticatedUser.getUserRole();
 
-        if (userRole == UserRole.ADMIN) {
-            return "admin-panel";
-        }
-        if (userRole == UserRole.OWNER) {
-            return "owner-panel";
-        }
-        return "home";
+        String view = renderView(userRole);
+        return view;
     }
 
+    private static String renderView(UserRole role) {
+        switch (role) {
+            case ADMIN:
+                return "admin-panel";
+            case OWNER:
+                return "owner-panel";
+            case EMPLOYEE:
+                return "employee-panel";
+            default:
+                return "redirect:/home";
+        }
+    }
 }
