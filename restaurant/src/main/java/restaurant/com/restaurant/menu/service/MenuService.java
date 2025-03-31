@@ -3,21 +3,26 @@ package restaurant.com.restaurant.menu.service;
 import org.springframework.stereotype.Service;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.repository.MenuRepository;
+import restaurant.com.restaurant.menuitem.model.MenuItem;
+import restaurant.com.restaurant.menuitem.service.MenuItemService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;import restaurant.com.restaurant.web.dto.CreateMenuRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class MenuService {
 
     private final MenuRepository menuRepository;
     private final RestaurantService restaurantService;
+    private final MenuItemService menuItemService;
 
-    public MenuService(MenuRepository menuRepository, RestaurantService restaurantService) {
+    public MenuService(MenuRepository menuRepository, RestaurantService restaurantService, MenuItemService menuItemService) {
         this.menuRepository = menuRepository;
         this.restaurantService = restaurantService;
+        this.menuItemService = menuItemService;
     }
 
     public void createMenu(CreateMenuRequest createMenuRequest) {
@@ -43,5 +48,14 @@ public class MenuService {
 
     public Menu getMenuById(Long id) {
         return menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu with id " + id + " not found"));
+    }
+
+    public void addMenuItem(UUID menuItemId, Long menuId) {
+        MenuItem menuItem = menuItemService.getMenuItemById(menuItemId);
+
+        Menu menu = getMenuById(menuId);
+        menu.getMenuItems().add(menuItem);
+
+        menuRepository.save(menu);
     }
 }
