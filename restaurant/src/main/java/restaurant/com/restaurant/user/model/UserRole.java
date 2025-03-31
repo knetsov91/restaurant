@@ -1,7 +1,7 @@
 package restaurant.com.restaurant.user.model;
 
 public enum UserRole {
-    CLIENT,
+    CUSTOMER,
     EMPLOYEE,
     ADMIN,
     OWNER
