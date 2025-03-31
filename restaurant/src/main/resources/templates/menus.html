@@ -9,9 +9,10 @@
 </head>
 <body>
     <th:block th:insert="fragments/navbar :: navbar" ></th:block>
-
+    <a th:href="@{'/menus/create'}">Create</a>
     <h1>Menus</h1>
-    <table>
+    <p th:if="${menus.size() == 0}" th:text="${'No menus yet'}"></p>
+    <table th:unless="${menus.size() == 0}">
         <thead>
         <tr>
             <td>Restaurant</td>
