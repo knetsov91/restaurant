@@ -18,7 +18,8 @@
             <td>Address</td>
             <td>Capacity</td>
             <td>Created</td>
-            <td></td>
+            <td>Menus</td>
+            <td>Employees</td>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,8 @@
                 <td th:text="${restaurant.getCapacity()}"></td>
                 <td th:text="${restaurant.getCreatedAt()}"></td>
                 <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/menus'}">Menus</a></td>
+                <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/employees'}">Employees</a></td>
+
             </tr>
         </tbody>
     </table>
