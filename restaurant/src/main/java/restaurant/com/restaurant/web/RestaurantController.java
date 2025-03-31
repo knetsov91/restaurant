@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.employee.service.EmployeeService;
+import restaurant.com.restaurant.menu.model.Menu;
+import restaurant.com.restaurant.menu.service.MenuService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateRestaurantRequest;
@@ -21,10 +23,12 @@ public class RestaurantController {
 
     private RestaurantService restaurantService;
     private EmployeeService employeeService;
+    private MenuService menuService;
 
-    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService) {
+    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService, MenuService menuService) {
         this.restaurantService = restaurantService;
         this.employeeService = employeeService;
+        this.menuService = menuService;
     }
 
     @GetMapping
@@ -47,6 +51,16 @@ public class RestaurantController {
         restaurantService.createRestaurant(createRestaurantRequest);
 
         return new ModelAndView("redirect:/restaurants");
+    }
+
+    @GetMapping("/{restaurantId}/menus")
+    public ModelAndView getAllRestaurantMenus(@PathVariable(name = "restaurantId") Long restaurantId) {
+
+        List<Menu> menus = menuService.getMenusByRestaurantId(restaurantId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("menus", menus);
+        modelAndView.setViewName("menus");
+        return modelAndView;
     }
 
     @GetMapping("/{restaurantId}/employees")

@@ -35,16 +35,6 @@ public class MenuController {
         return modelAndView;
     }
 
-    @GetMapping("/restaurants/{restaurantId}/menus")
-    public ModelAndView getAllRestaurantMenus(@PathVariable(name = "restaurantId") Long restaurantId) {
-
-        List<Menu> menus = menuService.getMenusByRestaurantId(restaurantId);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("menus", menus);
-        modelAndView.setViewName("menus");
-        return modelAndView;
-    }
-
     @GetMapping("/menus/create")
     public ModelAndView getCreateMenu() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
@@ -79,6 +69,5 @@ public class MenuController {
         modelAndView.addObject("menu", menu);
 
         return modelAndView;
-
     }
 }
