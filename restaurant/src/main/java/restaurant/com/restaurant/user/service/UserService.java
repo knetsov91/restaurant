@@ -15,6 +15,7 @@ import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.repository.UserRepository;
 import restaurant.com.restaurant.web.AuthenticationController;
+import restaurant.com.restaurant.web.dto.CreateUserRequest;
 import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
@@ -89,5 +90,19 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User createUser(CreateUserRequest createUserRequest) {
+        User user = User.builder()
+                .firstName(createUserRequest.getFirstName())
+                .lastName(createUserRequest.getLastName())
+                .email(createUserRequest.getEmail())
+                .password(passwordEncoder.encode(createUserRequest.getPassword()))
+                .build();
+        user.setRole(createUserRequest.getRole());
+        user.setCreatedOn(LocalDateTime.now());
+        user.setPasswordChanged(false);
+        user.setActive(true);
+        return userRepository.save(user);
     }
 }
