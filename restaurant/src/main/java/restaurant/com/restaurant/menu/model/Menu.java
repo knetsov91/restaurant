@@ -25,7 +25,12 @@ public class Menu {
 
     private String imagePath;
 
-    @OneToMany(mappedBy = "menu")
+    @ManyToMany
+    @JoinTable(
+            name = "menu_menu_item",
+            joinColumns = @JoinColumn(name="menu_id"),
+            inverseJoinColumns = @JoinColumn(name="menu_item_id")
+    )
     private List<MenuItem> menuItems = new ArrayList<>();
 
     @ManyToOne

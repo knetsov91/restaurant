@@ -6,11 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import restaurant.com.restaurant.menu.model.Menu;
-
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.*;
 
 @Builder
 @Data
@@ -50,6 +48,6 @@ public class MenuItem {
 
     private LocalDateTime updatedAt;
 
-    @ManyToOne
-    private Menu menu;
+    @ManyToMany(mappedBy = "menuItems")
+    private List<Menu> menus = new ArrayList<>();
 }
