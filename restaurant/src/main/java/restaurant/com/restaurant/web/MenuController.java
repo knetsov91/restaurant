@@ -31,7 +31,7 @@ public class MenuController {
         List<Menu> allMenus = menuService.getAllMenus();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menus");
+        modelAndView.setViewName("menu/menus");
         modelAndView.addObject("menus", allMenus);
 
         return modelAndView;
@@ -42,7 +42,7 @@ public class MenuController {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menu-create");
+        modelAndView.setViewName("menu/menu-create");
         modelAndView.addObject("createMenuRequest", new CreateMenuRequest());
         modelAndView.addObject("restaurants", restaurants);
 
@@ -53,7 +53,7 @@ public class MenuController {
     public ModelAndView createMenu(CreateMenuRequest createMenuRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<Restaurant> restaurants = restaurantService.getRestaurants();
-            ModelAndView modelAndView = new ModelAndView("menu-create");
+            ModelAndView modelAndView = new ModelAndView("menu/menu-create");
             modelAndView.addObject("restaurants", restaurants);
 
             return modelAndView;
@@ -67,7 +67,7 @@ public class MenuController {
         Menu menu = menuService.getMenuById(menuId);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menu");
+        modelAndView.setViewName("menu/menu");
         modelAndView.addObject("menu", menu);
 
         return modelAndView;

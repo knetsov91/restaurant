@@ -32,7 +32,7 @@ public class MenuItemController {
     public ModelAndView getItems() {
         List<MenuItem> items = menuItemService.getAllMenuItems();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menu-items");
+        modelAndView.setViewName("menu-item/menu-items");
         modelAndView.addObject("items", items);
         return modelAndView;
     }
@@ -41,7 +41,7 @@ public class MenuItemController {
     public ModelAndView createItem() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menu-item-create");
+        modelAndView.setViewName("menu-item/menu-item-create");
         modelAndView.addObject("items", List.of());
         modelAndView.addObject("restaurants", restaurants);
         modelAndView.addObject("createMenuItemRequest", CreateMenuItemRequest.builder().build());
@@ -52,7 +52,7 @@ public class MenuItemController {
     public ModelAndView postItems(@Valid CreateMenuItemRequest createMenuItemRequest, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("menu-item-create");
+            return new ModelAndView("menu-item/menu-item-create");
         }
 
         menuItemService.createMenuItem(createMenuItemRequest);

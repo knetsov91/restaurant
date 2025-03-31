@@ -33,7 +33,7 @@ public class EmployeeController {
     @GetMapping
     public ModelAndView getEmployees() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("employees");
+        modelAndView.setViewName("employee/employees");
 
         return modelAndView;
     }
@@ -41,7 +41,7 @@ public class EmployeeController {
     @PostMapping
     public ModelAndView createEmployee(@Valid CreateEmployeeRequest createEmployeeRequest, @AuthenticationPrincipal AuthenticatedUser authenticatedUser, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("employee-create");
+            return new ModelAndView("employee/employee-create");
         }
         employeeService.createEmployee(createEmployeeRequest);
         return new ModelAndView("redirect:/employees");
@@ -51,7 +51,7 @@ public class EmployeeController {
     public ModelAndView createEmployee() {
         List<Restaurant> restaurants = restaurantService.getRestaurants();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("employee-create");
+        modelAndView.setViewName("employee/employee-create");
         modelAndView.addObject("createEmployeeRequest", new CreateEmployeeRequest());
         modelAndView.addObject("restaurants", restaurants);
         return modelAndView;
@@ -61,7 +61,7 @@ public class EmployeeController {
     public ModelAndView getEmployee(@PathVariable UUID employeeId) {
         Employee employee = employeeService.getEmployeeById(employeeId);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("employee-view");
+        modelAndView.setViewName("employee/employee-view");
         modelAndView.addObject("employee", employee);
 
         return modelAndView;
