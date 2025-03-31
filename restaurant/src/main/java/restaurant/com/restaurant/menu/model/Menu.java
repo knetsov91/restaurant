@@ -5,8 +5,8 @@ import lombok.Data;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,8 +25,8 @@ public class Menu {
 
     private String imagePath;
 
-    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
-    private Set<MenuItem> menuItems = new HashSet<>();
+    @OneToMany(mappedBy = "menu")
+    private List<MenuItem> menuItems = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="restaurant_id")
