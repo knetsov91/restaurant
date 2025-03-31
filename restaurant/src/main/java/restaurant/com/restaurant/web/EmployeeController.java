@@ -40,7 +40,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ModelAndView createEmployee(@Valid CreateEmployeeRequest createEmployeeRequest, @AuthenticationPrincipal AuthenticatedUser authenticatedUser, BindingResult bindingResult) {
+    public ModelAndView createEmployee(@Valid CreateEmployeeRequest createEmployeeRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("employee/employee-create");
         }
