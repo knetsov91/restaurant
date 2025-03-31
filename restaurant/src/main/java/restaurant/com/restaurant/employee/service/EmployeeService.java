@@ -13,6 +13,7 @@ import restaurant.com.restaurant.web.dto.CreateUserRequest;
 import restaurant.com.restaurant.web.mapper.DtoMapper;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class EmployeeService {
@@ -46,5 +47,10 @@ public class EmployeeService {
         employee.setRestaurant(restaurant);
 
         employeeRepository.save(employee);
+    }
+
+    public Employee getEmployeeById(UUID employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new RuntimeException("Employee with id " + employeeId + " not found"));
     }
 }
