@@ -8,9 +8,11 @@
     <title>Document</title>
 </head>
 <body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
     <div th:each="item : ${allMenuItems}">
         <p th:text="${item.name}"></p>
-        <form th:method="POST" th:action="@{'/menu/' + ${menuId} +'/menu-items/' + ${item.getId()}}">
+        <form th:method="POST" th:action="@{'/menus/' + ${menuId} +'/menu-items/' + ${item.getId()}}">
             <button>Add</button>
         </form>
     </div>

@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
     <form th:method="POST" th:action="@{/menus}" th:object="${createMenuRequest}">
         <input type="text" th:field="*{title}">
 

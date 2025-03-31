@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
     <form th:action="@{'/employees'}" th:method="POST" th:object="${createEmployeeRequest}">
 
         <input type="email" placeholder="Email" th:field="*{email}" />

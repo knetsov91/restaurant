@@ -8,27 +8,27 @@
     <title>Menus</title>
 </head>
 <body>
-<th:block th:insert="fragments/navbar :: navbar" ></th:block>
-<a th:href="@{'/menus/create'}">Create</a>
-<h1>Menus</h1>
-<p th:if="${menus.size() == 0}" th:text="${'No menus yet'}"></p>
-<table th:unless="${menus.size() == 0}">
-    <thead>
-    <tr>
-        <td>Title</td>
-        <td>Date created</td>
-        <td>Open</td>
-    </tr>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+    <a th:href="@{'/menus/create'}">Create</a>
+    <h1>Menus</h1>
+    <p th:if="${menus.size() == 0}" th:text="${'No menus yet'}"></p>
+    <table th:unless="${menus.size() == 0}">
+        <thead>
+        <tr>
+            <td>Title</td>
+            <td>Date created</td>
+            <td>Open</td>
+        </tr>
 
-    </thead>
-    <tbody>
-    <tr th:each="menu : ${menus}">
+        </thead>
+        <tbody>
+        <tr th:each="menu : ${menus}">
 
-        <td th:text="${menu.getTitle()}"></td>
-        <td th:text="${menu.getCreatedAt()}"></td>
-        <td><a th:href="@{'/menus/' + ${menu.id}}">Open</a></td>
-    </tr>
-    </tbody>
-</table>
+            <td th:text="${menu.getTitle()}"></td>
+            <td th:text="${menu.getCreatedAt()}"></td>
+            <td><a th:href="@{'/menus/' + ${menu.id}}">Open</a></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>

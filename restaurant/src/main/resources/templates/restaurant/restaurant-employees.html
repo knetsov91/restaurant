@@ -8,26 +8,27 @@
     <title>Document</title>
 </head>
 <body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
 
-<h1 th:text="'Restaurant \'' + ${restaurantName} + '\' employees'"></h1>
-<a th:href="@{'/restaurants'}">Back</a>
+    <h1 th:text="'Restaurant \'' + ${restaurantName} + '\' employees'"></h1>
+    <a th:href="@{'/restaurants'}">Back</a>
 
-<p th:if="${employees.size() == 0}">No employees yet!</p>
-<table th:unless="${employees.size() == 0}">
-    <thead>
-    <tr>
-        <td>Name</td>
-        <td>Title</td>
-        <td>Profile</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="employee : ${employees}">
-        <td th:text="${employee.user.firstName}"></td>
+    <p th:if="${employees.size() == 0}">No employees yet!</p>
+    <table th:unless="${employees.size() == 0}">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Title</td>
+            <td>Profile</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.user.firstName}"></td>
 
-        <td><a th:href="@{'/employees/' + ${employee.id}}">View</a></td>
-    </tr>
-    </tbody>
-</table>
+            <td><a th:href="@{'/employees/' + ${employee.id}}">View</a></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
