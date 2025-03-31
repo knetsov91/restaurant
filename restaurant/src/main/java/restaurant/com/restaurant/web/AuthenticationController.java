@@ -36,7 +36,7 @@ public class AuthenticationController {
 
         userService.register(registerRequest);
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/login")
