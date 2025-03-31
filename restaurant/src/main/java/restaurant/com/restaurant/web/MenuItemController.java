@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.service.MenuItemService;
@@ -14,9 +14,9 @@ import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateMenuItemRequest;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
+@RequestMapping("/menu-items")
 public class MenuItemController {
 
     private MenuItemService menuItemService;
@@ -28,7 +28,7 @@ public class MenuItemController {
         this.restaurantService = restaurantService1;
     }
 
-    @GetMapping("/menu-items")
+    @GetMapping
     public ModelAndView getItems() {
         List<MenuItem> items = menuItemService.getAllMenuItems();
         ModelAndView modelAndView = new ModelAndView();
@@ -48,7 +48,7 @@ public class MenuItemController {
         return modelAndView;
     }
 
-    @PostMapping("/menu-items")
+    @PostMapping
     public ModelAndView postItems(@Valid CreateMenuItemRequest createMenuItemRequest, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
@@ -57,23 +57,5 @@ public class MenuItemController {
 
         menuItemService.createMenuItem(createMenuItemRequest);
         return new ModelAndView("redirect:/menu-items");
-    }
-
-    @GetMapping("/menu/{menuId}/menu-items/create")
-    public ModelAndView createMenuItem(@PathVariable Long menuId) {
-        List<MenuItem> allMenuItems = menuItemService.getAllMenuItems();
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("menu-add-item");
-        modelAndView.addObject("allMenuItems", allMenuItems);
-        modelAndView.addObject("menuId", menuId);
-        return modelAndView;
-    }
-
-    @PostMapping("/menu/{menuId}/menu-items/{menuItemId}")
-    public String addMenuItem(@PathVariable Long menuId, @PathVariable UUID menuItemId) {
-        menuItemService.addMenuItem(menuItemId, menuId);
-
-        return "redirect:/menus/" + menuId;
     }
 }
