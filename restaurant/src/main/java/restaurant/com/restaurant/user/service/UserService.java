@@ -9,12 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import restaurant.com.restaurant.config.AuthenticatedUser;
+import restaurant.com.restaurant.customer.service.CustomerService;
 import restaurant.com.restaurant.exception.RegisterException;
 import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.repository.UserRepository;
 import restaurant.com.restaurant.web.AuthenticationController;
-import restaurant.com.restaurant.web.dto.CreateUserRequest;
 import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
@@ -27,11 +27,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private CustomerService customerService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CustomerService customerService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.customerService = customerService;
     }
 
     public void register(RegisterRequest registerRequest) {
@@ -48,14 +50,16 @@ public class UserService implements UserDetailsService {
         }
 
         User user = User.builder()
-                .role(UserRole.CLIENT)
+                .role(UserRole.CUSTOMER)
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .createdOn(LocalDateTime.now())
                 .isActive(true)
                 .build();
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        customerService.createCustomer(savedUser);
+
         LOGGER.info("User registered successfully");
     }
 
