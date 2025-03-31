@@ -14,6 +14,7 @@ import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateMenuItemRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class MenuItemController {
@@ -67,5 +68,12 @@ public class MenuItemController {
         modelAndView.addObject("allMenuItems", allMenuItems);
         modelAndView.addObject("menuId", menuId);
         return modelAndView;
+    }
+
+    @PostMapping("/menu/{menuId}/menu-items/{menuItemId}")
+    public String addMenuItem(@PathVariable Long menuId, @PathVariable UUID menuItemId) {
+        menuItemService.addMenuItem(menuItemId, menuId);
+
+        return "redirect:/menus/" + menuId;
     }
 }
