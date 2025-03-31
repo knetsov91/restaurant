@@ -1,6 +1,7 @@
 package restaurant.com.restaurant.restaurant.service;
 
 import org.springframework.stereotype.Service;
+import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.repository.RestaurantRepository;
 import restaurant.com.restaurant.web.dto.CreateRestaurantRequest;
@@ -33,5 +34,11 @@ public class RestaurantService {
         return restaurantRepository
                 .findById(restaurantId)
                 .orElseThrow(() -> new RuntimeException("Restaurant with id " + restaurantId + " not found"));
+    }
+
+    public List<Employee> getRestaurantEmployees(Long restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Restaurant with id " + restaurantId + " not found"));
+        return restaurant.getEmployees();
     }
 }
