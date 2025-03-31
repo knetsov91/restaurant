@@ -47,17 +47,4 @@ public class AuthenticationController {
 
         return modelAndView;
     }
-
-//    @PostMapping("/login")
-//    public ModelAndView loginPost(LoginRequest loginRequest, BindingResult bindingResult, HttpSession session) {
-//
-//        if (bindingResult.hasErrors()) {
-//            return new ModelAndView("login");
-//        }
-//
-//        User login = userService.login(loginRequest);
-//        session.setAttribute("userId", login.getId());
-//
-//        return new ModelAndView("redirect:/dashboard");
-//    }
 }
