@@ -21,6 +21,9 @@ public class IndexController {
         if (userRole == UserRole.ADMIN) {
             return "admin-panel";
         }
+        if (userRole == UserRole.OWNER) {
+            return "owner-panel";
+        }
         return "home";
     }
 
