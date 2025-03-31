@@ -4,9 +4,12 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import restaurant.com.restaurant.employee.model.Employee;
+import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateRestaurantRequest;
@@ -17,9 +20,11 @@ import java.util.List;
 public class RestaurantController {
 
     private RestaurantService restaurantService;
+    private EmployeeService employeeService;
 
-    public RestaurantController(RestaurantService restaurantService) {
+    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService) {
         this.restaurantService = restaurantService;
+        this.employeeService = employeeService;
     }
 
     @GetMapping
@@ -42,6 +47,20 @@ public class RestaurantController {
         restaurantService.createRestaurant(createRestaurantRequest);
 
         return new ModelAndView("redirect:/restaurants");
+    }
+
+    @GetMapping("/{restaurantId}/employees")
+    public ModelAndView getEmployees(@PathVariable Long restaurantId) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+
+        List<Employee> employees =  restaurantService.getRestaurantEmployees(restaurantId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("restaurant-employees");
+        modelAndView.addObject("employees", employees);
+        modelAndView.addObject("restaurantName", restaurant.getName());
+
+        return modelAndView;
     }
 
     @GetMapping("/create")
