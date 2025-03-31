@@ -105,4 +105,9 @@ public class UserService implements UserDetailsService {
         user.setActive(true);
         return userRepository.save(user);
     }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
+    }
 }
