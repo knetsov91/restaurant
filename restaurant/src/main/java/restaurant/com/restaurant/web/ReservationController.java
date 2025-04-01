@@ -3,14 +3,14 @@ package restaurant.com.restaurant.web;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.reservation.model.Reservation;
+import restaurant.com.restaurant.reservation.model.ReservationStatus;
 import restaurant.com.restaurant.reservation.service.ReservationService;
 import restaurant.com.restaurant.web.dto.CreateReservationRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/reservations")
@@ -41,5 +41,16 @@ public class ReservationController {
         modelAndView.addObject("reservations", reservations);
 
         return modelAndView;
+    }
+
+    @PutMapping("/{reservationId}/status")
+    public String changeReservationStatus(@PathVariable UUID reservationId,
+                                          @RequestParam ReservationStatus reservationStatus,
+                                          @RequestParam Long restaurantId
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        reservationService.changeReservationStatus(reservationId, reservationStatus);
+
+        return "redirect:/restaurants/" + restaurantId + "/reservations";
     }
 }
