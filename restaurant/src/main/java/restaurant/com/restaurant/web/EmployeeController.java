@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.config.AuthenticatedUser;
 import restaurant.com.restaurant.employee.model.Employee;
@@ -34,16 +31,22 @@ public class EmployeeController {
     @GetMapping("/panel")
     public ModelAndView employeePanel(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         Employee employee = employeeService.getEmployeeByUserId(authenticatedUser.getEmail());
+        Long restaurantId = employee.getRestaurant().getId();
         ModelAndView modelAndView = new ModelAndView();
         String view = resolveTemplate(employee.getEmployeeType());
         modelAndView.setViewName(view);
-
+        modelAndView.addObject("restaurantId", restaurantId);
         return modelAndView;
     }
 
     @GetMapping
-    public ModelAndView getEmployees() {
-        List<Employee> employees =  employeeService.getAllEmployees();
+    public ModelAndView getEmployees(@RequestParam(required = false) Long restaurantId) {
+        List<Employee> employees = null;
+        if (restaurantId != null) {
+            employees = employeeService.getAllEmployeesByRestaurantId(restaurantId);
+        } else {
+            employees = employeeService.getAllEmployees();
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("employee/employees");
         modelAndView.addObject("employees", employees);
