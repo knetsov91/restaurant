@@ -33,7 +33,8 @@ public class MenuController {
         this.menuItemService = menuItemService;
         this.employeeService = employeeService;
     }
-    
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public ModelAndView getAllMenus(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         List<Menu> allMenus = menuService.getAllMenus();
