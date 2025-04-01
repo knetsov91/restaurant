@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,8 +12,8 @@
 
     <form th:method="POST" th:action="@{/menus}" th:object="${createMenuRequest}">
         <input type="text" th:field="*{title}">
-
-        <select th:field="*{restaurantId}">
+        <input sec:authorize="hasAuthority('ROLE_EMPLOYEE')" type="hidden" th:field="*{restaurantId}" th:value="${createMenuRequest.restaurantId}" />
+        <select sec:authorize="!hasAuthority('ROLE_EMPLOYEE')" th:if="${restaurants}" th:field="*{restaurantId}">
             <option th:each="restaurant : ${restaurants}" th:text="${restaurant.name}" th:value="${restaurant.getId()}"></option>
         </select>
         <button>Create</button>
