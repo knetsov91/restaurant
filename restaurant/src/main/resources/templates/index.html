@@ -10,5 +10,23 @@
 <body>
 <th:block th:insert="fragments/navbar :: navbar" ></th:block>
     <p>Index templete</p>
+
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Address</td>
+        <td>Menus</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="restaurant : ${restaurants}">
+        <td th:text="${restaurant.getName()}"></td>
+        <td th:text="${restaurant.getAddress()}"></td>
+        <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/menus'}">Menus</a></td>
+        <td><a th:href="@{'/restaurants/' + ${restaurant.id} + '/reservations/new'}">Make reservation</a></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
