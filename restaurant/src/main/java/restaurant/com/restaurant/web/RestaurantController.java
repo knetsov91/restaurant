@@ -58,9 +58,10 @@ public class RestaurantController {
         List<Menu> menus = restaurantService.getRestaurantMenus(restaurantId);
 
         ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.addObject("menus", menus);
+        modelAndView.addObject("restaurantId", restaurantId);
         modelAndView.setViewName("restaurant/restaurant-menus");
+
         return modelAndView;
     }
 
@@ -86,4 +87,5 @@ public class RestaurantController {
 
         return modelAndView;
     }
+
 }
