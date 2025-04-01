@@ -12,6 +12,8 @@ import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
+import restaurant.com.restaurant.reservation.model.Reservation;
+import restaurant.com.restaurant.reservation.service.ReservationService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateReservationRequest;
@@ -25,11 +27,13 @@ public class RestaurantController {
     private RestaurantService restaurantService;
     private EmployeeService employeeService;
     private MenuService menuService;
+    private ReservationService reservationService;
 
-    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService, MenuService menuService) {
+    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService, MenuService menuService, ReservationService reservationService) {
         this.restaurantService = restaurantService;
         this.employeeService = employeeService;
         this.menuService = menuService;
+        this.reservationService = reservationService;
     }
 
     @GetMapping
@@ -97,6 +101,16 @@ public class RestaurantController {
         createReservationRequest.setRestaurantId(restaurantId);
         modelAndView.addObject("createReservationRequest", createReservationRequest);
 
+        return modelAndView;
+    }
+
+    @GetMapping("/{restaurantId}/reservations")
+    private ModelAndView getReservations(@PathVariable Long restaurantId) {
+        List<Reservation> reservationsByRestaurant = reservationService.getReservationsByRestaurantId(restaurantId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("reservations", reservationsByRestaurant);
+        modelAndView.setViewName("restaurant/restaurant-reservations");
         return modelAndView;
     }
 }
