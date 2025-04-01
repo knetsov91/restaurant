@@ -7,6 +7,7 @@ import restaurant.com.restaurant.reservation.repository.ReservationRepository;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateReservationRequest;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -30,5 +31,11 @@ public class ReservationService {
         reservation.setRestaurant(restaurant);
 
         reservationRepository.save(reservation);
+    }
+
+    public List<Reservation> getReservationsByRestaurantId(Long restaurantId) {
+        return reservationRepository
+                .findByRestaurantId(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Restaurnat with id " + restaurantId + " not found"));
     }
 }
