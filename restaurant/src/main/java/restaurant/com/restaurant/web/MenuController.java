@@ -1,12 +1,13 @@
 package restaurant.com.restaurant.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import restaurant.com.restaurant.config.AuthenticatedUser;
+import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
@@ -24,15 +25,17 @@ public class MenuController {
     private final MenuItemService menuItemService;
     private MenuService menuService;
     private RestaurantService restaurantService;
+    private EmployeeService employeeService;
 
-    public MenuController(MenuService menuService, RestaurantService restaurantService, MenuItemService menuItemService) {
+    public MenuController(MenuService menuService, RestaurantService restaurantService, MenuItemService menuItemService, EmployeeService employeeService) {
         this.menuService = menuService;
         this.restaurantService = restaurantService;
         this.menuItemService = menuItemService;
+        this.employeeService = employeeService;
     }
-
+    
     @GetMapping
-    public ModelAndView getAllMenus() {
+    public ModelAndView getAllMenus(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         List<Menu> allMenus = menuService.getAllMenus();
 
         ModelAndView modelAndView = new ModelAndView();
@@ -43,12 +46,20 @@ public class MenuController {
     }
 
     @GetMapping("/create")
-    public ModelAndView getCreateMenu() {
-        List<Restaurant> restaurants = restaurantService.getRestaurants();
-
+    public ModelAndView getCreateMenu(@RequestParam(required = false) Long restaurantId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("menu/menu-create");
-        modelAndView.addObject("createMenuRequest", new CreateMenuRequest());
+
+        CreateMenuRequest attributeValue = new CreateMenuRequest();
+
+        if (restaurantId != null) {
+            attributeValue.setRestaurantId(restaurantId);
+            modelAndView.addObject("createMenuRequest", attributeValue);
+            return modelAndView;
+        }
+        List<Restaurant> restaurants = restaurantService.getRestaurants();
+
+        modelAndView.addObject("createMenuRequest", attributeValue);
         modelAndView.addObject("restaurants", restaurants);
 
         return modelAndView;
@@ -64,7 +75,7 @@ public class MenuController {
             return modelAndView;
         }
         menuService.createMenu(createMenuRequest);
-        return new ModelAndView("redirect:/menu-items");
+        return new ModelAndView("redirect:/menus");
     }
 
     @GetMapping("/{menuId}/menu-items/add")
