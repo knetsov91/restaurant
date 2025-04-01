@@ -8,6 +8,7 @@ import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateReservationRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ReservationService {
@@ -41,5 +42,14 @@ public class ReservationService {
 
     public List<Reservation> getAllReservations() {
         return reservationRepository.findAll();
+    }
+
+    public void changeReservationStatus(UUID reservationId, ReservationStatus reservationStatus) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new RuntimeException("Reservation with id " + reservationId + " not found"));
+
+        reservation.setReservationStatus(reservationStatus);
+
+        reservationRepository.save(reservation);
     }
 }
