@@ -58,6 +58,10 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public List<Employee> getAllEmployeesByRestaurantId(Long restaurantId) {
+        return employeeRepository.findByRestaurantId(restaurantId);
+    }
+    
     public Employee getEmployeeByUserId(String email) {
         User user = userService.findUserByEmail(email);
         return employeeRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Employee with email " + email + " not found"));
