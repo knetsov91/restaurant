@@ -38,4 +38,8 @@ public class ReservationService {
                 .findByRestaurantId(restaurantId)
                 .orElseThrow(() -> new RuntimeException("Restaurnat with id " + restaurantId + " not found"));
     }
+
+    public List<Reservation> getAllReservations() {
+        return reservationRepository.findAll();
+    }
 }
