@@ -9,7 +9,9 @@
 </head>
 <body>
     <th:block th:insert="fragments/navbar :: navbar" ></th:block>
-    <a th:href="@{'/menus/create'}">Create</a>
+    <a th:unless="${restaurantId}"  th:href="@{'/menus/create'}">Create</a>
+    <a th:if="${restaurantId}" th:href="@{'/menus/create?restaurantId=' + ${restaurantId}}">Create</a>
+
     <h1>Menus</h1>
     <p th:if="${menus.size() == 0}" th:text="${'No menus yet'}"></p>
     <table th:unless="${menus.size() == 0}">
