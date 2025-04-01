@@ -30,6 +30,7 @@
                 <td th:text="${restaurant.getCreatedAt()}"></td>
                 <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/menus'}">Menus</a></td>
                 <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/employees'}">Employees</a></td>
+                <td><a th:href="@{'/restaurants/' + ${restaurant.getId()} + '/reservations'}">Reservations</a></td>
 
             </tr>
         </tbody>
