@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 import restaurant.com.restaurant.reservation.model.Reservation;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
 
     Optional<List<Reservation>> findByRestaurantId(Long restaurantId);
 }
