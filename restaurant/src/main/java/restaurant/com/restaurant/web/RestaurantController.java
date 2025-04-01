@@ -14,6 +14,7 @@ import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
+import restaurant.com.restaurant.web.dto.CreateReservationRequest;
 import restaurant.com.restaurant.web.dto.CreateRestaurantRequest;
 import java.util.List;
 
@@ -88,4 +89,14 @@ public class RestaurantController {
         return modelAndView;
     }
 
+    @GetMapping("/{restaurantId}/reservations/new")
+    public ModelAndView createRestaurantReservation(@PathVariable Long restaurantId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("reservation/reservation-create");
+        CreateReservationRequest createReservationRequest = new CreateReservationRequest();
+        createReservationRequest.setRestaurantId(restaurantId);
+        modelAndView.addObject("createReservationRequest", createReservationRequest);
+
+        return modelAndView;
+    }
 }
