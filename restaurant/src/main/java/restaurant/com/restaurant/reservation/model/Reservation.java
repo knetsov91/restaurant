@@ -22,13 +22,14 @@ public class Reservation {
     private LocalDateTime reservationDate;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 
     @Column(nullable = false)
     private String phoneNumber;
 
     @ManyToOne
-    private Customer client;
+    private Customer customer;
 
     @ManyToOne(optional = false)
     private Restaurant restaurant;
