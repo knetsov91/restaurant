@@ -19,8 +19,8 @@ public class ReservationService {
         this.restaurantService = restaurantService;
     }
 
-    public void createReservation(Long restaurantId, CreateReservationRequest createReservationRequest) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+    public void createReservation(CreateReservationRequest createReservationRequest) {
+        Restaurant restaurant = restaurantService.getRestaurantById(createReservationRequest.getRestaurantId());
 
         Reservation reservation = new Reservation();
         reservation.setReservationStatus(ReservationStatus.PENDING);
