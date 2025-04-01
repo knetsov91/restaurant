@@ -1,11 +1,13 @@
 package restaurant.com.restaurant.reservation.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import restaurant.com.restaurant.customer.model.Customer;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Data
 @Entity
 public class Reservation {
 
@@ -14,7 +16,7 @@ public class Reservation {
     private UUID id;
 
     @Column(nullable = false)
-    private int customers_number;
+    private int customersNumber;
 
     @Column(nullable = false)
     private LocalDateTime reservationDate;
