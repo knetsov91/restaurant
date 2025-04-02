@@ -44,6 +44,12 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public List<Reservation> getReservationsByClientId(UUID customerId) {
+        return reservationRepository
+                .findByCustomerId(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer with id " + customerId + " not found"));
+    }
+
     public void changeReservationStatus(UUID reservationId, ReservationStatus reservationStatus) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("Reservation with id " + reservationId + " not found"));
