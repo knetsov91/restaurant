@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<th:block th:insert="fragments/navbar :: navbar" ></th:block>
+<p>Reservations</p>
+
+<table>
+    <thead>
+    <tr>
+        <td>Restaurant</td>
+        <td>Phone</td>
+        <td>Customers</td>
+        <td>Date</td>
+        <td>Status</td>
+        <td>Customer</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reservation : ${reservations}">
+        <td th:text="${reservation.getRestaurant().name}"></td>
+        <td th:text="${reservation.getPhoneNumber()}"></td>
+        <td th:text="${reservation.getCustomersNumber()}"></td>
+        <td th:text="${reservation.getReservationDate()}"></td>
+        <td th:text="${reservation.getReservationStatus().name()}"></td>
+        <td th:text="${ reservation.getCustomer() != null ? reservation.getCustomer().getUser().getEmail() : 'N/A'}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
