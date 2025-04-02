@@ -25,4 +25,9 @@ public class OrderService {
         return orders.getBody();
     }
 
+    public List<OrderResponse> getOrdersByRestaurantId(Long restaurantId) {
+        ResponseEntity<List<OrderResponse>> ordersByRestaurantId = orderClient.getOrdersByRestaurantId(restaurantId);
+        HttpStatusCode statusCode = ordersByRestaurantId.getStatusCode();
+        return ordersByRestaurantId.getBody();
+    }
 }
