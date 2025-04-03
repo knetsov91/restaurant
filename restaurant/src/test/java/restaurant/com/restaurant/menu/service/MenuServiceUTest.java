@@ -14,6 +14,9 @@ import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.web.dto.CreateMenuRequest;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,5 +52,15 @@ class MenuServiceUTest {
         menuService.createMenu(createMenuRequest);
 
         verify(menuRepository, times(1)).save(menu);
+    }
+
+    @Test
+    public void whenGetAllMenus_happyPath() {
+        when(menuRepository.findAll()).thenReturn(List.of(new Menu()));
+
+        List<Menu> allMenus = menuService.getAllMenus();
+
+        verify(menuRepository, times(1)).findAll();
+        assertEquals(1, allMenus.size());
     }
 }
