@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Document</title>
+</head>
+<body>
+<h3>Make reservation</h3>
+
+<div class="creation-container">
+<form th:object="${createReservationRequest}" th:action="@{'/reservations'}" th:method="POST">
+    <input type="hidden" th:field="*{restaurantId}" th:value="${restaurantId}" />
+    <label for="reservationDate">Date</label>
+    <input type="datetime-local" placeholder="Reservation Date" id="reservationDate" th:field="*{reservationDate}">
+    <p class="alert-warning" th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}"></p>
+
+    <label for="phoneNumber">Phone Number</label>
+    <input type="text" placeholder="Phone Number" id="phoneNumber" th:field="*{phoneNumber}">
+    <p class="alert-warning" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+
+    <label for="customersNumber">Customers Number</label>
+    <input type="number" placeholder="Customers Number" id="customersNumber" th:field="*{customersNumber}">
+    <p class="alert-warning" th:if="${#fields.hasErrors('customersNumber')}" th:errors="*{customersNumber}"></p>
+
+    <button>Make reservation</button>
+
+</form>
+</div>
+</body>
+</html>

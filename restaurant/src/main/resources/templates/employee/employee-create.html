@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Create employee</title>
+</head>
+<body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+<div class="creation-container">
+    <form th:action="@{'/employees'}" th:method="POST" th:object="${createEmployeeRequest}">
+        <label for="email">Email</label>
+        <input type="email" placeholder="Email" id="email" th:field="*{email}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" th:field="*{password}"/>
+        <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+
+        <label for="firstName">First name</label>
+        <input type="text" placeholder="First name" id="firstName" th:field="*{firstName}"/>
+        <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+
+        <label for="lastName">Last name</label>
+        <input type="text" placeholder="Last name" id="lastName" th:field="*{lastName}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+
+        <label for="age">Age</label>
+        <input type="number" placeholder="Age" id="age" th:field="*{age}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+
+        <label for="salary">Salary</label>
+        <input type="number" placeholder="Salary" id="salary" th:field="*{salary}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+
+        <label for="employeeType">Employee type</label>
+        <select id="employeeType" th:field="*{employeeType}">
+            <option th:each="r : ${T(restaurant.com.restaurant.employee.model.EmployeeType).values()}" th:value="${r}" th:text="${r}"></option>
+        </select>
+        <p class="alert-warning" th:if="${#fields.hasErrors('employeeType')}" th:errors="*{employeeType}"></p>
+
+        <label for="restaurant">Restaurant</label>
+        <select id="restaurant" th:field="*{restaurantId}">
+            <option th:each="restaurant : ${restaurants}" th:text="${restaurant.name}" th:value="${restaurant.getId()}"></option>
+        </select>
+        <button>Create</button>
+    </form>
+    </div>
+</body>
+</html>

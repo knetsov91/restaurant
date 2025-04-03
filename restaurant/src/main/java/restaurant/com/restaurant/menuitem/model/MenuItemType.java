@@ -6,6 +6,5 @@ public enum MenuItemType {
     MAIN_DISH,
     SALAD,
     BEVERAGE,
-    SOUP,
-    ALCHOCOL
+    SOUP
 }

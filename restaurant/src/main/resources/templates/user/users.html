@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet"type="text/css" th:href="@{/css/styles.css}">
+    <title>Document</title>
+</head>
+<body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
+    <div class="users-container">
+        <table>
+            <thead>
+            <tr>
+                <td>Email</td>
+                <td>First name</td>
+                <td>Last name</td>
+                <td>Role</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" class="users">
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+<!--                <td th:text="${user.role}"></td>-->
+                <td >
+
+                    <form th:method="PUT" th:action="@{'/users/' + ${user.email} + '/role'}">
+
+                        <select th:name="role">
+                            <option th:selected="${user.getRole() == role}"
+                                    th:each="role : ${T(restaurant.com.restaurant.user.model.UserRole).values()}"
+                                    th:text="${role.name()}"
+                                    th:value="${role}"></option>
+                        </select>
+                        <button>Change</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

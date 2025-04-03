@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Orders</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <td>Restaurant</td>
+            <td>OrderId</td>
+            <td>Status</td>
+            <td>Date</td>
+            <td>waiterID</td>
+            <td>Customer</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.restaurantId}"></td>
+            <td th:text="${order.getOrderId()}"></td>
+            <td th:text="${order.getOrderStatus()}"></td>
+            <td th:text="${order.getOrderDate()}"></td>
+            <td th:text="${order.getWaiterId()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

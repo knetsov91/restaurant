@@ -1,0 +1,78 @@
+.nav-right {
+    float: right;
+    background-color: dodgerblue;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+li {
+    float: left;
+}
+
+li a{
+    display: block;
+    color: white;
+
+    text-decoration: none;
+    padding: 1rem;
+}
+
+.activate {
+    background-color: #333333;
+}
+li a:hover(.activate) {
+    background-color: aqua;
+}
+
+table {
+        border-radius: 0.5rem;
+    padding: 3rem;
+    margin: 3rem auto;
+    background-color: cornflowerblue;
+}
+thead {
+    background-color: dodgerblue;
+}
+
+td a {
+    text-decoration: none;
+    color: greenyellow;
+}
+body {
+    background-color: chocolate;
+}
+
+.nav-right  a form {
+    margin: 0.5rem;
+}
+
+.nav-right button {
+    border-radius: 12px;
+    background-color: aqua;
+}
+.creation-container {
+    margin: 0 auto;
+    background-color: greenyellow;
+    max-width: 800px;
+    height: 400px;
+
+}
+.creation-container form {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.alert-warning {
+    background-color: black;
+    color: white;
+}

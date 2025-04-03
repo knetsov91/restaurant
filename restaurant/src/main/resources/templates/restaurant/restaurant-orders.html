@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Document</title>
+</head>
+<body>
+<th:block th:insert="fragments/navbar :: navbar" ></th:block>
+<p>Orders</p>
+
+<table>
+    <thead>
+    <tr>
+        <td>RestaurantID</td>
+        <td>WaiterId</td>
+        <td>Date</td>
+        <td>Status</td>
+        <td>Customer</td>
+        <td>Finish data</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.restaurantId}"></td>
+        <td th:text="${order.waiterId}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td >
+
+            <form th:method="PUT" th:action="@{'/orders/' + ${order.orderId} + '/status'}">
+
+                <select th:name="orderStatus">
+                    <option th:selected="${order.getOrderStatus() == status.name()}"
+                            th:each="status : ${T(restaurant.com.restaurant.order.OrderStatus).values()}"
+                            th:text="${status.name()}"
+                            th:value="${status}"></option>
+                </select>
+                <button>Change</button>
+            </form>
+        </td>
+        <td th:text="${order.clientId}"></td>
+        <td th:text="${order.getFinishDate()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

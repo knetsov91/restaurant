@@ -1,17 +1,11 @@
 package restaurant.com.restaurant.web;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.service.UserService;
 import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
@@ -42,7 +36,7 @@ public class AuthenticationController {
 
         userService.register(registerRequest);
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/login")
@@ -52,18 +46,5 @@ public class AuthenticationController {
         modelAndView.addObject("loginRequest", new LoginRequest());
 
         return modelAndView;
-    }
-
-    @PostMapping("/login")
-    public ModelAndView loginPost(LoginRequest loginRequest, BindingResult bindingResult, HttpSession session) {
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("login");
-        }
-
-        User login = userService.login(loginRequest);
-        session.setAttribute("userId", login.getId());
-
-        return new ModelAndView("redirect:/dashboard");
     }
 }

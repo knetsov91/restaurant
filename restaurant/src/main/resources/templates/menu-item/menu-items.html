@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Document</title>
+</head>
+<body>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
+
+    <a th:href="@{/menu-items/create}">Create</a>
+    <h1>Menu items</h1>
+
+    <div class="menu-items-container">
+        <div th:each="item : ${items}">
+            <div th:text="${item.name}"></div>
+            <div th:text="${item.price}"></div>
+            <div th:text="${item.description}"></div>
+            <div th:text="${item.createdAt}"></div>
+            <div> <img th:src="${#strings.isEmpty(item.getImagePath()) ? 'https://dev.bg/wp-content/uploads/2019/05/dreamix-logo_colour-black-new-one-79x40.png' : item.getImagePath()}" /></div>
+        </div>
+    </div>
+</body>
+</html>
