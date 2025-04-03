@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import restaurant.com.restaurant.user.model.UserRole;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public class AuthenticatedUser implements UserDetails {
     private String password;
     private boolean isActive;
     private UserRole userRole;
+    private UUID userId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
