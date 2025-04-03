@@ -34,4 +34,11 @@ public class OrderController {
         return "redirect:" + request.getHeader("Referer");
     }
 
+    @GetMapping("/restaurants/{restaurantId}")
+    public ModelAndView getOrdersForRestaurant(@PathVariable Long restaurantId) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        return modelAndView;
+    }
 }
