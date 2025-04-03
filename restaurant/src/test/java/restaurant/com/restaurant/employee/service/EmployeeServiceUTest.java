@@ -12,6 +12,9 @@ import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.service.UserService;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
+import java.util.Optional;
+import java.util.UUID;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -45,5 +48,17 @@ class EmployeeServiceUTest {
         employeeService.createEmployee(createEmployeeRequest);
 
         verify(employeeRepository, times(1)).save(any());
+    }
+
+    @Test
+    void givenExistingEmployeeId_whenGetEmployeeById_thenReturnEmployee() {
+        Employee expectedEmployee = new Employee();
+        expectedEmployee.setId(UUID.randomUUID());
+
+        when(employeeRepository.findById(expectedEmployee.getId())).thenReturn(Optional.of(expectedEmployee));
+        Employee actualEmployee = employeeService.getEmployeeById(expectedEmployee.getId());
+
+        assertEquals(expectedEmployee.getId(), actualEmployee.getId());
+        verify(employeeRepository, times(1)).findById(expectedEmployee.getId());
     }
 }
