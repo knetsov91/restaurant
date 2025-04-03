@@ -61,10 +61,10 @@ public class EmployeeService {
     public List<Employee> getAllEmployeesByRestaurantId(Long restaurantId) {
         return employeeRepository
                 .findByRestaurantId(restaurantId)
-                .orElseThrow(() -> new RuntimeException("Employee with id " + restaurantId + " not found"));
+                .orElseThrow(() -> new RuntimeException("Restaurant with id " + restaurantId + " not found"));
     }
 
-    public Employee getEmployeeByUserId(String email) {
+    public Employee getEmployeeByUserEmail(String email) {
         User user = userService.findUserByEmail(email);
         return employeeRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Employee with email " + email + " not found"));
     }

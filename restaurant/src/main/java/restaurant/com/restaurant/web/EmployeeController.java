@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @GetMapping("/panel")
     public ModelAndView employeePanel(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
-        Employee employee = employeeService.getEmployeeByUserId(authenticatedUser.getEmail());
+        Employee employee = employeeService.getEmployeeByUserEmail(authenticatedUser.getEmail());
         Long restaurantId = employee.getRestaurant().getId();
         ModelAndView modelAndView = new ModelAndView();
         String view = resolveTemplate(employee.getEmployeeType());
