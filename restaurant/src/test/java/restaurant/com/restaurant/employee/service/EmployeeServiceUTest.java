@@ -12,6 +12,7 @@ import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.service.UserService;
 import restaurant.com.restaurant.web.dto.CreateEmployeeRequest;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,5 +71,20 @@ class EmployeeServiceUTest {
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> employeeService.getEmployeeById(employeeId));
 
         assertEquals("Employee with id " + employeeId + " not found", runtimeException.getMessage());
+    }
+
+    @Test
+    void whenGetAllEmployees_thenReturnEmployees() {
+        UUID id = UUID.randomUUID();
+        Employee employee1 = new Employee();
+        employee1.setId(id);
+        List<Employee> expectedEmployees = List.of(employee1);
+
+        when(employeeRepository.findAll()).thenReturn(expectedEmployees);
+
+        List<Employee> allEmployees = employeeService.getAllEmployees();
+
+        assertEquals(1, allEmployees.size());
+        assertEquals(employee1.getId(), allEmployees.get(0).getId());
     }
 }
