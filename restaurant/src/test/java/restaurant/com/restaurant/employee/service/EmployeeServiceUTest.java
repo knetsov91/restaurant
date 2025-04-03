@@ -102,4 +102,13 @@ class EmployeeServiceUTest {
         assertEquals(1, actualEmployees.size());
         assertEquals(employee1.getId(), actualEmployees.get(0).getId());
     }
+
+    @Test
+    void givenNonExistingRestaurantId_whenGetRestaurantById_thenThrowException() {
+        Long id = 1L;
+        when(employeeRepository.findByRestaurantId(id)).thenReturn(Optional.empty());
+
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> employeeService.getAllEmployeesByRestaurantId(1L));
+        assertEquals("Restaurant with id " + id + " not found", runtimeException.getMessage());
+    }
 }
