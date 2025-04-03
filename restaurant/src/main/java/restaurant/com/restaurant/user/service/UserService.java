@@ -16,7 +16,6 @@ import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.repository.UserRepository;
 import restaurant.com.restaurant.web.AuthenticationController;
 import restaurant.com.restaurant.web.dto.CreateUserRequest;
-import restaurant.com.restaurant.web.dto.LoginRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -64,26 +63,10 @@ public class UserService implements UserDetailsService {
         LOGGER.info("User registered successfully");
     }
 
-    public User login(LoginRequest loginRequest) {
-
-        Optional<User> byEmail = userRepository.findByEmail(loginRequest.getEmail());
-
-        if (byEmail.isEmpty()) {
-            throw new RuntimeException("Something went wrong");
-        }
-
-        User user = byEmail.get();
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Something went wrong");
-        }
-
-        return user;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(user.getEmail(), user.getPassword(), user.isActive(), user.getRole());
+        AuthenticatedUser authenticatedUser = new AuthenticatedUser(user.getEmail(), user.getPassword(), user.isActive(), user.getRole(), user.getId());
 
         return authenticatedUser;
     }
