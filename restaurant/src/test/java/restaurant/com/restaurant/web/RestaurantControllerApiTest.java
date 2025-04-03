@@ -87,4 +87,18 @@ class RestaurantControllerApiTest {
                 .andExpect(model().attributeExists("employees"))
                 .andExpect(model().attributeExists("restaurantName"));
     }
+
+    @Test
+    void getAuthenticatedRequestToCreateRestaurantEndpoint_shouldRenderRestaurantCreateView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder request = get("/restaurants//create")
+                .with(user(authenticatedUser));
+
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("restaurant/restaurant-create"))
+                .andExpect(model().attributeExists("createRestaurantRequest"));
+    }
 }
