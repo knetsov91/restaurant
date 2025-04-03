@@ -102,4 +102,18 @@ class MenuControllerApiTest {
                 .andExpect(view().name("menu/menu-add-item"))
                 .andExpect(model().attributeExists("allMenuItems"));
     }
+
+    @Test
+    void getAuthenticatedRequestToMenuEndpoint_shouldRenderMenuView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = get("/menus/{menuId}", 1L);
+
+        Menu menu = new Menu();
+        when(menuService.getMenuById(1L)).thenReturn(menu);
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu/menu"));
+    }
 }
