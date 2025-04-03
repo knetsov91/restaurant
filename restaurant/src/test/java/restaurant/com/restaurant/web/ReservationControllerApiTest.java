@@ -8,12 +8,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import restaurant.com.restaurant.reservation.service.ReservationService;
-
 import java.time.LocalDateTime;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ReservationController.class)
 class ReservationControllerApiTest {
@@ -36,5 +33,19 @@ class ReservationControllerApiTest {
         mockMvc.perform(req)
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void postRequestToCreateReservationEndpointWithInvalidData_shouldRenderReservationCreationView() throws Exception {
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.post("/reservations")
+                .formField("customersNumber", "")
+                .formField("reservationDate", LocalDateTime.now().toString())
+                .formField("phoneNumber", "1111111111")
+                .with(csrf());
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("reservation/reservation-create"));
     }
 }
