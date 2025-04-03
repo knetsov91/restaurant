@@ -12,12 +12,14 @@ import restaurant.com.restaurant.customer.service.CustomerService;
 import restaurant.com.restaurant.user.model.User;
 import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.repository.UserRepository;
+import restaurant.com.restaurant.web.dto.CreateUserRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceUTest {
@@ -49,7 +51,7 @@ class UserServiceUTest {
     @Test
     void test_whenUserExists_thenThrowException() {
         String email = "email@email.com";
-        Mockito.when(userRepository.findByEmail(email))
+        when(userRepository.findByEmail(email))
                 .thenReturn(Optional
                     .of(User
                         .builder()
@@ -90,11 +92,11 @@ class UserServiceUTest {
                 .isActive(true)
                 .build();
 
-        Mockito.when(passwordEncoder.encode(register.getPassword())).thenReturn(hashedPassword);
-        Mockito.when(userRepository.save(user)).thenReturn(user);
-        Mockito.when(userRepository.count()).thenReturn(1L);
+        when(passwordEncoder.encode(register.getPassword())).thenReturn(hashedPassword);
+        when(userRepository.save(user)).thenReturn(user);
+        when(userRepository.count()).thenReturn(1L);
 
-        Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         userService.register(register);
 
@@ -113,7 +115,7 @@ class UserServiceUTest {
                 .password("password")
                 .build();
 
-        Mockito.when(userRepository.findByEmail(email))
+        when(userRepository.findByEmail(email))
                 .thenReturn(Optional.of(user));
 
         User u = userService.findUserByEmail(email);
@@ -132,12 +134,33 @@ class UserServiceUTest {
                 .build();
 
         List<User> users = List.of(new User());
-        Mockito.when(userRepository.findAll())
+        when(userRepository.findAll())
                 .thenReturn(users);
 
         List<User> users1 = userService.getAllUsers();
 
         assertEquals(users.size(), users1.size());
+
+    }
+
+    @Test
+    void whenFindUserByEmail_happyPath() {
+        CreateUserRequest user = CreateUserRequest.builder()
+                .firstName("name")
+                .lastName("last")
+                .email("email@email.com")
+                .password("dasdad")
+                .role(UserRole.CUSTOMER)
+                .build();
+        User user1 = new User();
+        user1.setEmail(user.getEmail());
+        user1.setPassword(user.getPassword());
+        user1.setActive(true);
+        user1.setPassword(user.getPassword());
+        user.setRole(UserRole.CUSTOMER);
+        user1.setCreatedOn(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+
+       userService.createUser(user);
 
     }
 
