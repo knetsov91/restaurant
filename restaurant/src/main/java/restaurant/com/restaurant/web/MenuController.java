@@ -1,5 +1,6 @@
 package restaurant.com.restaurant.web;
 
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class MenuController {
     }
 
     @PostMapping
-    public ModelAndView createMenu(CreateMenuRequest createMenuRequest, BindingResult bindingResult) {
+    public ModelAndView createMenu(@Valid CreateMenuRequest createMenuRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<Restaurant> restaurants = restaurantService.getRestaurants();
             ModelAndView modelAndView = new ModelAndView("menu/menu-create");
