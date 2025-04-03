@@ -12,7 +12,9 @@ import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.menu.service.MenuService;
 import restaurant.com.restaurant.order.service.OrderService;
 import restaurant.com.restaurant.reservation.service.ReservationService;
+import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -51,5 +53,17 @@ class RestaurantControllerApiTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("restaurant/restaurants"));
 
+    }
+
+    @Test
+    void getAuthenticatedRequestToRestaurantMenusEndpoint_shouldRenderMenusView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+        Restaurant restaurant = TestBuilder.createRestaurant();
+
+        MockHttpServletRequestBuilder request = get("/restaurants/1/menus").with(user(authenticatedUser));
+        when(restaurantService.getRestaurantById(1L)).thenReturn(restaurant);
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("restaurant/restaurant-menus"));
     }
 }
