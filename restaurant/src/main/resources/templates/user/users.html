@@ -26,7 +26,20 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
-                <td th:text="${user.role}"></td>
+<!--                <td th:text="${user.role}"></td>-->
+                <td >
+
+                    <form th:method="PUT" th:action="@{'/users/' + ${user.email} + '/role'}">
+
+                        <select th:name="role">
+                            <option th:selected="${user.getRole() == role}"
+                                    th:each="role : ${T(restaurant.com.restaurant.user.model.UserRole).values()}"
+                                    th:text="${role.name()}"
+                                    th:value="${role}"></option>
+                        </select>
+                        <button>Change</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
