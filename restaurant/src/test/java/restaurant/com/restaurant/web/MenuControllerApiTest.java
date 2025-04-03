@@ -11,6 +11,7 @@ import restaurant.com.restaurant.config.AuthenticatedUser;
 import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
+import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.service.MenuItemService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
@@ -84,5 +85,21 @@ class MenuControllerApiTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("createMenuRequest"))
                 .andExpect(view().name("menu/menu-create"));
+    }
+
+    @Test
+    void getAuthenticatedRequestToAddMenuItemToMenuEndpoint_shouldRenderMenuItemAddView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = get("/menus/{menuId}/menu-items/add", 1L)
+                .with(user(authenticatedUser));
+
+        when(menuItemService.getAllMenuItems())
+            .thenReturn(List.of(new MenuItem()));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu/menu-add-item"))
+                .andExpect(model().attributeExists("allMenuItems"));
     }
 }
