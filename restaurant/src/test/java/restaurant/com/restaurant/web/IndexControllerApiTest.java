@@ -52,4 +52,17 @@ class IndexControllerApiTest {
                 .andExpect(view().name("admin-panel"));
 
     }
+
+    @Test
+    void getAuthenticatedRequestForCustomerToPanelEndpoint_shouldRedirectToCustomerPanel() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+        authenticatedUser.setUserRole(UserRole.CUSTOMER);
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/panel")
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().is3xxRedirection());
+
+    }
 }
