@@ -1,8 +1,10 @@
 package restaurant.com.restaurant.web;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import restaurant.com.restaurant.order.OrderStatus;
 import restaurant.com.restaurant.order.client.dto.OrderResponse;
 import restaurant.com.restaurant.order.service.OrderService;
 import java.util.List;
@@ -25,4 +27,11 @@ public class OrderController {
         modelAndView.addObject("orders", orders);
         return modelAndView;
     }
+
+    @PutMapping("/{orderId}/status")
+    public String updateOrderStatus(HttpServletRequest request, @PathVariable Long orderId, @RequestParam OrderStatus orderStatus) {
+        orderService.changeOrderStatus(orderId, orderStatus);
+        return "redirect:" + request.getHeader("Referer");
+    }
+
 }
