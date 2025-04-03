@@ -16,6 +16,7 @@ import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceUTest {
@@ -96,9 +97,28 @@ class UserServiceUTest {
 
         userService.register(register);
 
-        Assertions.assertEquals(1L, userRepository.count());
-        Assertions.assertEquals(hashedPassword, user.getPassword());
+        assertEquals(1L, userRepository.count());
+        assertEquals(hashedPassword, user.getPassword());
         Assertions.assertTrue(user.isActive());
-        Assertions.assertEquals(email, user.getEmail());
+        assertEquals(email, user.getEmail());
     }
+
+    @Test
+    void givenExistingUserEmail_whenFindUserByEmail_thenReturnUser() {
+        String email = "email@email.com";
+        User user = User
+                .builder()
+                .email(email)
+                .password("password")
+                .build();
+
+        Mockito.when(userRepository.findByEmail(email))
+                .thenReturn(Optional.of(user));
+
+        User u = userService.findUserByEmail(email);
+
+        assertEquals(user.getEmail(), u.getEmail());
+
+    }
+
 }
