@@ -17,9 +17,11 @@ import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import restaurant.com.restaurant.user.model.UserRole;
 import java.util.List;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(MenuController.class)
@@ -115,5 +117,22 @@ class MenuControllerApiTest {
         mockMvc.perform(req)
                 .andExpect(status().isOk())
                 .andExpect(view().name("menu/menu"));
+    }
+
+    @Test
+    void postAuthenticatedRequestToMenuCreationEndpointWithValidFormData_shouldCreateMenuAndRedirect() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = post("/menus")
+                .formField("title", "")
+                .param("restaurantId", "1")
+                .with(csrf())
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/menus"));
+
+        verify(menuService, times(1)).createMenu(any());
     }
 }
