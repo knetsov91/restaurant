@@ -71,4 +71,18 @@ class MenuControllerApiTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("menu/menu-create"));
     }
+
+    @Test
+    void getAuthenticatedRequestToMenuCreateEndpointWithQueryParameter_shouldRenderMenuCreateView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = get("/menus/create")
+                .param("restaurantId", "1")
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("createMenuRequest"))
+                .andExpect(view().name("menu/menu-create"));
+    }
 }
