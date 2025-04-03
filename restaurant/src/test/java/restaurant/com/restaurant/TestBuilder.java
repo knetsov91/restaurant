@@ -34,6 +34,7 @@ public class TestBuilder {
 
     public static Restaurant createRestaurant() {
         Restaurant restaurant = new Restaurant();
+        restaurant.setId(1L);
         restaurant.setName("Restaurant");
         restaurant.setCreatedAt(LocalDate.now());
         restaurant.setCapacity(22);
