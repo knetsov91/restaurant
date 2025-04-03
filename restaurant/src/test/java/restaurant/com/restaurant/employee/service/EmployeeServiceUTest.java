@@ -111,4 +111,19 @@ class EmployeeServiceUTest {
         RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> employeeService.getAllEmployeesByRestaurantId(1L));
         assertEquals("Restaurant with id " + id + " not found", runtimeException.getMessage());
     }
+
+    @Test
+    void givenExistingEmail_whenGetEmployeeByUserEmail_thenEmployeeReturned() {
+        User user = new User();
+        user.setEmail("email@email.com");
+        Employee expectedEmployee = new Employee();
+        expectedEmployee.setUser(user);
+
+        when(userService.findUserByEmail(user.getEmail())).thenReturn(user);
+        when(employeeRepository.findByUser(user)).thenReturn(Optional.of(expectedEmployee));
+
+        Employee actualEmployee = employeeService.getEmployeeByUserEmail(user.getEmail());
+
+        assertEquals(expectedEmployee.getUser().getEmail(), actualEmployee.getUser().getEmail());
+    }
 }
