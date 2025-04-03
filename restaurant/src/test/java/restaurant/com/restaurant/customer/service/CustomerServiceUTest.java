@@ -11,6 +11,7 @@ import restaurant.com.restaurant.user.model.User;
 import java.util.Optional;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -50,5 +51,15 @@ class CustomerServiceUTest {
 
         assertEquals(expectedCustomer.getUser().getId(), actualCustomer.getUser().getId());
         verify(customerRepository, times(1)).findByUserId(user.getId());
+    }
+
+    @Test
+    void givenNonExistingUserId_whenGetCustomerByUserId_thenThrowException() {
+        when(customerRepository.findByUserId(any())).thenReturn(Optional.empty());
+
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> customerService.getCustomerByUserId(UUID.randomUUID()));
+
+        assertEquals("Customer not found", runtimeException.getMessage());
+        verify(customerRepository, times(1)).findByUserId(any());
     }
 }
