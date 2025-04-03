@@ -135,4 +135,20 @@ class MenuControllerApiTest {
 
         verify(menuService, times(1)).createMenu(any());
     }
+
+    @Test
+    void postAuthenticatedRequestToMenuCreationEndpointWithInvalidFormData_shouldRenderMenuCreateView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+        MockHttpServletRequestBuilder req = post("/menus")
+                .formField("title", "")
+                .param("restaurantId", "1")
+                .with(csrf())
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu/menu-create"))
+                .andExpect(model().hasErrors());
+
+    }
 }
