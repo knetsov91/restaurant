@@ -5,14 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Document</title>
 </head>
 <body>
     <th:block th:insert="fragments/navbar :: navbar" ></th:block>
 
-    <a th:href="@{/employees}">Employees</a>
-    <a th:href="@{/restaurants}">Menus</a>
-    <a th:href="@{/employees}">Orders</a>
-
+    <a th:href="@{'/employees?restaurantId=' + ${restaurantId}}">Employees</a>
+    <a th:href="@{'/restaurants/' + ${restaurantId} + '/menus'}">Menus</a>
+    <a th:href="@{'/restaurants/' +  ${restaurantId} + '/reservations' }">Reservations</a>
+    <a th:href="@{'/restaurants/' +  ${restaurantId} + '/orders' }">Orders</a>
 </body>
 </html>
