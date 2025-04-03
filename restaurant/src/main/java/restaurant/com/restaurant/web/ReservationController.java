@@ -43,6 +43,16 @@ public class ReservationController {
         return modelAndView;
     }
 
+    @GetMapping("/{customerId}")
+    public ModelAndView getReservationById(@PathVariable UUID customerId) {
+        List<Reservation> reservationsByClientId = reservationService.getReservationsByClientId(customerId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("customer/reservations");
+        modelAndView.addObject("reservations", reservationsByClientId);
+
+        return modelAndView;
+    }
+
     @PutMapping("/{reservationId}/status")
     public String changeReservationStatus(@PathVariable UUID reservationId,
                                           @RequestParam ReservationStatus reservationStatus,
