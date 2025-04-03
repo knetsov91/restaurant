@@ -87,4 +87,19 @@ class EmployeeServiceUTest {
         assertEquals(1, allEmployees.size());
         assertEquals(employee1.getId(), allEmployees.get(0).getId());
     }
+
+    @Test
+    void givenExistingRestaurantId_whenGetRestaurantById_thenReturnListOfRestaurantEmployees() {
+        Employee employee1 = new Employee();
+        employee1.setId(UUID.randomUUID());
+
+        List<Employee> expectedEmployees = List.of(employee1);
+
+        when(employeeRepository.findByRestaurantId(any())).thenReturn(Optional.of(expectedEmployees));
+
+        List<Employee> actualEmployees = employeeService.getAllEmployeesByRestaurantId(1L);
+
+        assertEquals(1, actualEmployees.size());
+        assertEquals(employee1.getId(), actualEmployees.get(0).getId());
+    }
 }
