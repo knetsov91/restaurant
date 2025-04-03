@@ -7,9 +7,19 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import restaurant.com.restaurant.TestBuilder;
+import restaurant.com.restaurant.config.AuthenticatedUser;
+import restaurant.com.restaurant.reservation.model.Reservation;
+import restaurant.com.restaurant.reservation.model.ReservationStatus;
 import restaurant.com.restaurant.reservation.service.ReservationService;
+import restaurant.com.restaurant.restaurant.model.Restaurant;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ReservationController.class)
@@ -47,5 +57,20 @@ class ReservationControllerApiTest {
         mockMvc.perform(req)
                 .andExpect(status().isOk())
                 .andExpect(view().name("reservation/reservation-create"));
+    }
+
+    @Test
+    void getAuthenticatedRequestAllReservationsEndpointWithInvalidData_shouldRenderReservationsView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/reservations")
+                .with(user(authenticatedUser));
+
+        when(reservationService.getReservationsByClientId(any())).thenReturn(List.of(new Reservation()));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("reservation/reservations"))
+                .andExpect(model().attributeExists("reservations"));
     }
 }
