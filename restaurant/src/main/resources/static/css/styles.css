@@ -57,14 +57,14 @@ body {
     border-radius: 12px;
     background-color: aqua;
 }
-.reservation-container {
+.creation-container {
     margin: 0 auto;
     background-color: greenyellow;
     max-width: 800px;
-    height: 300px;
+    height: 400px;
 
 }
-.reservation-container form {
+.creation-container form {
     flex-direction: column;
     display: flex;
     align-items: center;

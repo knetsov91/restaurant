@@ -10,10 +10,10 @@
 </head>
 <body>
     <th:block th:insert="fragments/navbar :: navbar" ></th:block>
-    <h1>Client's Home</h1>
 
-    <a th:href="@{'/reservations/customers/' + ${customerId}}">Reservations</a>
-    <a th:href="@{''}">Orders</a>
-
+    <ul th:fragment="admin-panel-menu">
+        <li><a th:href="/users">Users</a></li>
+        <li><a th:href="/users/create">Create user</a></li>
+    </ul>
 </body>
 </html>

@@ -14,6 +14,8 @@
     <form th:method="POST" th:action="@{/menus}" th:object="${createMenuRequest}">
         <input type="text" th:field="*{title}">
         <input sec:authorize="hasAuthority('ROLE_EMPLOYEE')" type="hidden" th:field="*{restaurantId}" th:value="${createMenuRequest.restaurantId}" />
+        <p class="alert-warning" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+
         <select sec:authorize="!hasAuthority('ROLE_EMPLOYEE')" th:if="${restaurants}" th:field="*{restaurantId}">
             <option th:each="restaurant : ${restaurants}" th:text="${restaurant.name}" th:value="${restaurant.getId()}"></option>
         </select>
