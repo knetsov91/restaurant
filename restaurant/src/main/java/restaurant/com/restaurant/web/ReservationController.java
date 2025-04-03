@@ -43,7 +43,7 @@ public class ReservationController {
         return modelAndView;
     }
 
-    @GetMapping("/{customerId}")
+    @GetMapping("/customers/{customerId}")
     public ModelAndView getReservationById(@PathVariable UUID customerId) {
         List<Reservation> reservationsByClientId = reservationService.getReservationsByClientId(customerId);
         ModelAndView modelAndView = new ModelAndView();
@@ -58,7 +58,6 @@ public class ReservationController {
                                           @RequestParam ReservationStatus reservationStatus,
                                           @RequestParam Long restaurantId
     ) {
-        ModelAndView modelAndView = new ModelAndView();
         reservationService.changeReservationStatus(reservationId, reservationStatus);
 
         return "redirect:/restaurants/" + restaurantId + "/reservations";
