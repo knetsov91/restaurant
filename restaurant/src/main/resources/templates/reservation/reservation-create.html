@@ -11,7 +11,7 @@
 <body>
 <h3>Make reservation</h3>
 
-<div class="reservation-container">
+<div class="creation-container">
 <form th:object="${createReservationRequest}" th:action="@{'/reservations'}" th:method="POST">
     <input type="hidden" th:field="*{restaurantId}" th:value="${restaurantId}" />
     <label for="reservationDate">Date</label>
