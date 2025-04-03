@@ -84,4 +84,24 @@ class MenuItemControllerApiTest {
                 .andExpect(redirectedUrl("/menu-items"));
 
     }
+
+    @Test
+    void postAuthenticatedRequestToMenusItemsCreateEndpointWithInvalidData_shouldRenderMenuItemView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = post("/menu-items")
+                .formField("name", "da")
+                .formField("menuItemType", MenuItemType.DESERT.name())
+                .formField("price", "12")
+                .formField("description", "s")
+                .with(user(authenticatedUser))
+                .with(csrf());
+
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu-item/menu-item-create"))
+                .andExpect(model().hasErrors());
+
+    }
 }
