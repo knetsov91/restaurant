@@ -8,20 +8,31 @@
     <title>Document</title>
 </head>
 <body>
-
-<ul th:fragment="navbar">
-    <li>
-        <a href="/">Index</a>
-        <a sec:authorize="hasAuthority('ROLE_CUSTOMER')" th:href="@{'/home'}">Home</a>
-        <a sec:authorize="hasAnyAuthority('ROLE_OWNER', 'ROLE_ADMIN')" th:href="@{'/panel'}">Panel</a>
-        <a sec:authorize="hasAuthority('ROLE_EMPLOYEE')" th:href="@{'/employees/panel'}">Panel</a>
-        <a sec:authorize="!isAuthenticated()" href="/login">Login</a>
-        <a sec:authorize="!isAuthenticated()" href="/register">Register</a>
-        <form th:action="@{/logout}" th:method="POST"  sec:authorize="isAuthenticated()">
-            <button href="/logout">Logout</button>
-
-        </form>
-    </li>
-</ul>
+    <ul th:fragment="navbar">
+        <li>
+            <a href="/">Index</a></li>
+        </li>
+         <li>
+             <a sec:authorize="hasAuthority('ROLE_CUSTOMER')" th:href="@{'/home'}">Home</a>
+         </li>
+         <li>
+             <a sec:authorize="hasAnyAuthority('ROLE_OWNER', 'ROLE_ADMIN')" th:href="@{'/panel'}">Panel</a>
+         </li>
+         <li>
+             <a sec:authorize="hasAuthority('ROLE_EMPLOYEE')" th:href="@{'/employees/panel'}">Panel</a>
+         </li>
+         <li>
+             <a sec:authorize="!isAuthenticated()" href="/login">Login</a>
+         </li>
+         <li>
+             <a sec:authorize="!isAuthenticated()" href="/register">Register</a>
+         </li>
+         <li class="nav-right">
+            <p sec:authorize="isAuthenticated()" sec:authentication="principal.username"></p>
+            <form th:action="@{/logout}" th:method="POST"  sec:authorize="isAuthenticated()">
+                <button href="/logout">Logout</button>
+            </form>
+         </li>
+    </ul>
 </body>
 </html>
