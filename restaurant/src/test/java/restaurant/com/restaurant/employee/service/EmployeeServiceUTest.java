@@ -61,4 +61,14 @@ class EmployeeServiceUTest {
         assertEquals(expectedEmployee.getId(), actualEmployee.getId());
         verify(employeeRepository, times(1)).findById(expectedEmployee.getId());
     }
+
+    @Test
+    void givenNonExistingEmployeeId_whenGetEmployeeById_thenThrowException() {
+        UUID employeeId = UUID.randomUUID();
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.empty());
+
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> employeeService.getEmployeeById(employeeId));
+
+        assertEquals("Employee with id " + employeeId + " not found", runtimeException.getMessage());
+    }
 }
