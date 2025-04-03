@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.web.servlet.View;
 import restaurant.com.restaurant.TestBuilder;
 import restaurant.com.restaurant.config.AuthenticatedUser;
 import restaurant.com.restaurant.employee.model.Employee;
@@ -16,8 +17,7 @@ import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerApiTest {
@@ -30,6 +30,8 @@ class EmployeeControllerApiTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private View view;
 
     @Test
     void getAuthenticatedRequestToEmployeePanel_shouldRenderRenderEmployeePanel() throws Exception {
@@ -55,6 +57,9 @@ class EmployeeControllerApiTest {
                 .with(user(authenticatedUser));
 
         mockMvc.perform(req)
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(view().name("employee/employees"))
+                .andExpect(model().attributeExists("employees"));
+
     }
 }
