@@ -65,6 +65,7 @@ class IndexControllerApiTest {
                 .andExpect(status().is3xxRedirection());
 
     }
+
     @Test
     void getAuthenticatedRequestForOwnerToPanelEndpoint_shouldRenderOwnerPanel() throws Exception {
         AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
@@ -77,5 +78,17 @@ class IndexControllerApiTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("owner-panel"));
 
+    }
+
+    @Test
+    void getAuthenticatedRequestForEmployeeToPanelEndpoint_shouldRedirectToEmployeePanel() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+        authenticatedUser.setUserRole(UserRole.EMPLOYEE);
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/panel")
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().is3xxRedirection());
     }
 }
