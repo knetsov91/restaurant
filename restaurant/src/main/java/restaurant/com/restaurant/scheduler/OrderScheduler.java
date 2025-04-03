@@ -18,10 +18,14 @@ public class OrderScheduler {
 
     @Scheduled(fixedRate = 10000)
     public void scheduled() {
-        List<OrderResponse> orders = orderService.getOrders();
+        try {
 
-//        log.info(orders.size());
-        System.out.println("Executing scheduled");
+            List<OrderResponse> orders = orderService.getOrders();
 
+          log.info("Orders count %s".formatted(orders.size()));
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 }
