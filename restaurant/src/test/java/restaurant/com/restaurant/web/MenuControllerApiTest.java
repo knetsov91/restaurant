@@ -124,7 +124,7 @@ class MenuControllerApiTest {
         AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
 
         MockHttpServletRequestBuilder req = post("/menus")
-                .formField("title", "")
+                .formField("title", "title")
                 .param("restaurantId", "1")
                 .with(csrf())
                 .with(user(authenticatedUser));
