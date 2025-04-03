@@ -18,6 +18,7 @@ import restaurant.com.restaurant.web.AuthenticationController;
 import restaurant.com.restaurant.web.dto.CreateUserRequest;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class UserService implements UserDetailsService {
                 .role(UserRole.CUSTOMER)
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .createdOn(LocalDateTime.now())
+                .createdOn(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .isActive(true)
                 .build();
 
