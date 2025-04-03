@@ -12,6 +12,8 @@ import restaurant.com.restaurant.employee.model.Employee;
 import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.service.MenuService;
+import restaurant.com.restaurant.order.client.dto.OrderResponse;
+import restaurant.com.restaurant.order.service.OrderService;
 import restaurant.com.restaurant.reservation.model.Reservation;
 import restaurant.com.restaurant.reservation.service.ReservationService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
@@ -28,12 +30,14 @@ public class RestaurantController {
     private EmployeeService employeeService;
     private MenuService menuService;
     private ReservationService reservationService;
+    private OrderService orderService;
 
-    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService, MenuService menuService, ReservationService reservationService) {
+    public RestaurantController(RestaurantService restaurantService, EmployeeService employeeService, MenuService menuService, ReservationService reservationService, OrderService orderService) {
         this.restaurantService = restaurantService;
         this.employeeService = employeeService;
         this.menuService = menuService;
         this.reservationService = reservationService;
+        this.orderService = orderService;
     }
 
     @GetMapping
@@ -111,6 +115,16 @@ public class RestaurantController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("reservations", reservationsByRestaurant);
         modelAndView.setViewName("restaurant/restaurant-reservations");
+        return modelAndView;
+    }
+
+    @GetMapping("/{restaurantId}/orders")
+    public ModelAndView getOrders(@PathVariable Long restaurantId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("restaurant/restaurant-orders");
+        List<OrderResponse> orders = orderService.getOrdersByRestaurantId(restaurantId);
+        modelAndView.addObject("orders", orders);
+
         return modelAndView;
     }
 }
