@@ -10,6 +10,7 @@ import restaurant.com.restaurant.TestBuilder;
 import restaurant.com.restaurant.config.AuthenticatedUser;
 import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.service.MenuItemService;
+import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
 import java.util.List;
 import static org.mockito.Mockito.when;
@@ -44,4 +45,21 @@ class MenuItemControllerApiTest {
                 .andExpect(model().attributeExists("items"));
     }
 
+    @Test
+    void getAuthenticatedRequestToMenusItemsCreateEndpoint_shouldRenderMenusItemsCreateView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+
+        MockHttpServletRequestBuilder req = get("/menu-items/create")
+                .with(user(authenticatedUser));
+        when(restaurantService.getRestaurants()).thenReturn(List.of(new Restaurant()));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu-item/menu-item-create"))
+                .andExpect(model().attributeExists("items"))
+                .andExpect(model().attributeExists("restaurants"))
+                .andExpect(model().attributeExists("createMenuItemRequest"));
+
+    }
 }
