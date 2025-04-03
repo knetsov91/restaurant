@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import restaurant.com.restaurant.order.OrderStatus;
 import restaurant.com.restaurant.order.client.OrderClient;
+import restaurant.com.restaurant.order.client.dto.ChangeOrderStatusRequest;
 import restaurant.com.restaurant.order.client.dto.OrderResponse;
 import java.util.List;
 
@@ -29,5 +31,11 @@ public class OrderService {
         ResponseEntity<List<OrderResponse>> ordersByRestaurantId = orderClient.getOrdersByRestaurantId(restaurantId);
         HttpStatusCode statusCode = ordersByRestaurantId.getStatusCode();
         return ordersByRestaurantId.getBody();
+    }
+
+    public void changeOrderStatus(Long orderId, OrderStatus orderStatus) {
+        ChangeOrderStatusRequest changeOrderStatusRequest = new ChangeOrderStatusRequest();
+        changeOrderStatusRequest.setOrderStatus(orderStatus);
+        ResponseEntity<Void> voidResponseEntity = orderClient.updateOrderStatus(orderId, changeOrderStatusRequest);
     }
 }
