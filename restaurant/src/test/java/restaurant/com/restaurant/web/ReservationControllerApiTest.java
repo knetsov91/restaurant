@@ -95,4 +95,22 @@ class ReservationControllerApiTest {
                 .andExpect(view().name("customer/reservations"))
                 .andExpect(model().attributeExists("reservations"));
     }
+
+    @Test
+    void putAuthenticatedRequestToChangeReservationStatusEndpoint_shouldRedirect() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders
+                .put("/reservations/{reservationId}/status", UUID.randomUUID())
+                .formField("reservationStatus", ReservationStatus.RESERVED.name())
+                .formField("restaurantId", "1")
+                .with(csrf())
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/restaurants/1/reservations"));
+
+    }
+
 }
