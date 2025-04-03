@@ -126,4 +126,16 @@ class EmployeeServiceUTest {
 
         assertEquals(expectedEmployee.getUser().getEmail(), actualEmployee.getUser().getEmail());
     }
+
+    @Test
+    void givenNonExistingEmail_whenGetEmployeeByUserEmail_thenThrowException() {
+        String email = "email@email.com";
+
+        when(userService.findUserByEmail(any())).thenReturn(null);
+        when(employeeRepository.findByUser(any())).thenReturn(Optional.empty());
+
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> employeeService.getEmployeeByUserEmail(email));
+        assertEquals("Employee with email " + email + " not found", runtimeException.getMessage());
+
+    }
 }
