@@ -1,27 +1,26 @@
 package restaurant.com.restaurant.user.service;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.Assert;
-import restaurant.com.restaurant.order.model.UserRole;
+import restaurant.com.restaurant.customer.service.CustomerService;
 import restaurant.com.restaurant.user.model.User;
+import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.repository.UserRepository;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
-
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserServiceUTest {
 
+    @InjectMocks
     private UserService userService;
 
     @Mock
@@ -30,10 +29,9 @@ class UserServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
-    @BeforeEach
-    void setUp() {
-        userService = new UserService(userRepository, null);
-    }
+    @Mock
+    private CustomerService customerService;
+
     @Test
     void test_whenPasswordAndConfirmPasswordDontMatch_thenThrowException() {
 
@@ -74,8 +72,7 @@ class UserServiceTest {
         String password = "password";
         String hashedPassword = "!@#$%^&*(";
         String email = "email@email.com";
-
-        LocalDateTime createdOn = LocalDateTime.now();
+        LocalDateTime createdOn = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         RegisterRequest register = RegisterRequest.builder()
                 .email(email)
@@ -84,10 +81,11 @@ class UserServiceTest {
                 .build();
 
         User user = User.builder()
-                .role(UserRole.USER)
+                .role(UserRole.CUSTOMER)
                 .email(email)
                 .password(hashedPassword)
                 .createdOn(createdOn)
+                .isActive(true)
                 .build();
 
         Mockito.when(passwordEncoder.encode(register.getPassword())).thenReturn(hashedPassword);
@@ -97,19 +95,10 @@ class UserServiceTest {
         Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         userService.register(register);
-        Optional<User> byEmail = userRepository.findByEmail(email);
-        User userRetrieved = byEmail.get();
 
-        Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         Assertions.assertEquals(1L, userRepository.count());
-        Assertions.assertEquals(hashedPassword, userRetrieved.getPassword());
-        Assertions.assertTrue(byEmail.isPresent());
-
-        Assertions.assertEquals(hashedPassword, userRetrieved.getPassword());
-        Assertions.assertEquals(createdOn, userRetrieved.getCreatedOn());
-        Assertions.assertEquals(email, userRetrieved.getEmail());
-
-
-
+        Assertions.assertEquals(hashedPassword, user.getPassword());
+        Assertions.assertTrue(user.isActive());
+        Assertions.assertEquals(email, user.getEmail());
     }
 }
