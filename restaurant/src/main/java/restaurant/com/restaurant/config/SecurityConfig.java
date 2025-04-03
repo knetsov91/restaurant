@@ -21,6 +21,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                     matchers.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .requestMatchers("/", "/register", "/login",
                             "/restaurants/*/menus",
+                            "/menus/*",
                             "/restaurants/*/reservations/new"
                     ).permitAll()
                     .anyRequest().authenticated()
