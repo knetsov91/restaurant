@@ -8,6 +8,7 @@ import restaurant.com.restaurant.menuitem.service.MenuItemService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;import restaurant.com.restaurant.web.dto.CreateMenuRequest;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,7 +32,7 @@ public class MenuService {
         Menu menu = new Menu();
         menu.setRestaurant(restaurant);
         menu.setTitle(createMenuRequest.getTitle());
-        menu.setCreatedAt(LocalDateTime.now());
+        menu.setCreatedAt(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 
         menuRepository.save(menu);
     }
