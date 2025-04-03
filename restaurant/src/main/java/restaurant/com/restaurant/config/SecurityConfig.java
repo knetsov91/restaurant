@@ -4,6 +4,7 @@ package restaurant.com.restaurant.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,10 +20,10 @@ public class SecurityConfig implements WebMvcConfigurer {
         return http
                 .authorizeHttpRequests(matchers ->
                     matchers.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                    .requestMatchers(HttpMethod.POST, "/reservations").permitAll()
                     .requestMatchers("/", "/register", "/login",
                             "/restaurants/*/menus",
                             "/menus/*",
-                            "/reservations",
                             "/restaurants/*/reservations/new"
                     ).permitAll()
                     .anyRequest().authenticated()
