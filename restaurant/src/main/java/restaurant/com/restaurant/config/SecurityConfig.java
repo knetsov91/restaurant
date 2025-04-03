@@ -19,7 +19,10 @@ public class SecurityConfig implements WebMvcConfigurer {
         return http
                 .authorizeHttpRequests(matchers ->
                     matchers.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .requestMatchers("/", "/register", "/login").permitAll()
+                    .requestMatchers("/", "/register", "/login",
+                            "/restaurants/*/menus",
+                            "/restaurants/*/reservations/new"
+                    ).permitAll()
                     .anyRequest().authenticated()
                 ).formLogin(form ->
                         form.loginPage("/login")
