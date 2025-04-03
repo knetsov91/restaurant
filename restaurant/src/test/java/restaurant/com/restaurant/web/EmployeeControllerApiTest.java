@@ -14,6 +14,7 @@ import restaurant.com.restaurant.employee.model.EmployeeType;
 import restaurant.com.restaurant.employee.service.EmployeeService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
+import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -60,7 +61,6 @@ class EmployeeControllerApiTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("employee/employees"))
                 .andExpect(model().attributeExists("employees"));
-
     }
 
     @Test
@@ -73,5 +73,21 @@ class EmployeeControllerApiTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("employee/employees"))
                 .andExpect(model().attributeExists("employees"));
+    }
+
+    @Test
+    void getAuthenticatedRequestToEmployeeCreateEndpoint_shouldRenderViewForCreateEmployee() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+        List<Restaurant> restaurants = List.of(new Restaurant());
+
+        MockHttpServletRequestBuilder req = get("/employees/create")
+                .with(user(authenticatedUser));
+
+        when(restaurantService.getRestaurants()).thenReturn(restaurants);
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("employee/employee-create"))
+                .andExpect(model().attributeExists("restaurants"));
     }
 }
