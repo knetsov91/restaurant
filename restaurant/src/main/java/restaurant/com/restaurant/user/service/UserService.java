@@ -84,7 +84,7 @@ public class UserService implements UserDetailsService {
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
                 .build();
         user.setRole(createUserRequest.getRole());
-        user.setCreatedOn(LocalDateTime.now());
+        user.setCreatedOn(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         user.setPasswordChanged(false);
         user.setActive(true);
         return userRepository.save(user);
@@ -93,5 +93,12 @@ public class UserService implements UserDetailsService {
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));
+    }
+
+    public void changerRole(String email, UserRole role) {
+        User userByEmail = findUserByEmail(email);
+        userByEmail.setRole(role);
+
+        userRepository.save(userByEmail);
     }
 }
