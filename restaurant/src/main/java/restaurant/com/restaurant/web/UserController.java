@@ -2,10 +2,10 @@ package restaurant.com.restaurant.web;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import restaurant.com.restaurant.user.model.User;
+import restaurant.com.restaurant.user.model.UserRole;
 import restaurant.com.restaurant.user.service.UserService;
 import java.util.List;
 
@@ -29,5 +29,12 @@ public class UserController {
         modelAndView.addObject("users", allUsers);
 
         return modelAndView;
+    }
+
+    @PutMapping("/{email}/role")
+    public ModelAndView updateUserRole(@PathVariable String email, @RequestParam UserRole role) {
+        userService.changerRole(email,role);
+        return new ModelAndView("redirect:/users");
+
     }
 }
