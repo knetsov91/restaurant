@@ -15,6 +15,7 @@ import restaurant.com.restaurant.user.repository.UserRepository;
 import restaurant.com.restaurant.web.dto.RegisterRequest;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -118,6 +119,25 @@ class UserServiceUTest {
         User u = userService.findUserByEmail(email);
 
         assertEquals(user.getEmail(), u.getEmail());
+
+    }
+
+    @Test
+    void whenFindUserByEmail_thenReturnAllUser() {
+        String email = "email@email.com";
+        User user = User
+                .builder()
+                .email(email)
+                .password("password")
+                .build();
+
+        List<User> users = List.of(new User());
+        Mockito.when(userRepository.findAll())
+                .thenReturn(users);
+
+        List<User> users1 = userService.getAllUsers();
+
+        assertEquals(users.size(), users1.size());
 
     }
 
