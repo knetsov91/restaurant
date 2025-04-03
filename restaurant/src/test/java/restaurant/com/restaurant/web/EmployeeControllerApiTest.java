@@ -62,4 +62,16 @@ class EmployeeControllerApiTest {
                 .andExpect(model().attributeExists("employees"));
 
     }
+
+    @Test
+    void getAuthenticatedRequestToEmployeesEndpointWithRequestParameter_shouldRenderViewWithAllEmployees() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+        MockHttpServletRequestBuilder req = get("/employees").param("restaurantId", "1")
+                .with(user(authenticatedUser));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("employee/employees"))
+                .andExpect(model().attributeExists("employees"));
+    }
 }
