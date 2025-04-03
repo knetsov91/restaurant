@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import restaurant.com.restaurant.TestBuilder;
 import restaurant.com.restaurant.menu.model.Menu;
 import restaurant.com.restaurant.menu.repository.MenuRepository;
+import restaurant.com.restaurant.menuitem.model.MenuItem;
 import restaurant.com.restaurant.menuitem.service.MenuItemService;
 import restaurant.com.restaurant.restaurant.model.Restaurant;
 import restaurant.com.restaurant.restaurant.service.RestaurantService;
@@ -15,6 +16,8 @@ import restaurant.com.restaurant.web.dto.CreateMenuRequest;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -62,5 +65,22 @@ class MenuServiceUTest {
 
         verify(menuRepository, times(1)).findAll();
         assertEquals(1, allMenus.size());
+    }
+
+    @Test
+    public void whenAddMenuItem_happyPath() {
+        UUID id = UUID.randomUUID();
+
+        MenuItem  menuItem = new MenuItem();
+        menuItem.setId(id);
+
+        Menu menu = new Menu();
+        menu.setId(1L);
+        menu.getMenuItems().add(menuItem);
+
+        when(menuItemService.getMenuItemById(id)).thenReturn(menuItem);
+        when(menuRepository.findById(1L)).thenReturn(Optional.of(menu));
+        menuService.addMenuItem(id, 1L);
+        verify(menuRepository, times(1)).save(menu);
     }
 }
