@@ -5,13 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <title>Admin panel</title>
 </head>
 <body>
-<th:block th:insert="fragments/navbar :: navbar" ></th:block>
+    <th:block th:insert="fragments/navbar :: navbar" ></th:block>
 
     <h1>Admin panel</h1>
     <a th:href="@{/users}">Users</a>
-
+    <a th:href="@{/restaurants}">Restaurants</a>
+    <a th:href="@{/employees}">Employees</a>
+    <a th:href="@{/menus}">Menus</a>
 </body>
 </html>
