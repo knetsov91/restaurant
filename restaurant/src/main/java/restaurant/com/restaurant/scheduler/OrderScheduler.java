@@ -19,11 +19,8 @@ public class OrderScheduler {
     @Scheduled(fixedRate = 10000)
     public void scheduled() {
         try {
-
             List<OrderResponse> orders = orderService.getOrders();
-
           log.info("Orders count %s".formatted(orders.size()));
-
         } catch (Exception e) {
             log.error(e.getMessage());
         }
