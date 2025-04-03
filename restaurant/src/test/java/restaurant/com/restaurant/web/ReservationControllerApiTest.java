@@ -73,4 +73,26 @@ class ReservationControllerApiTest {
                 .andExpect(view().name("reservation/reservations"))
                 .andExpect(model().attributeExists("reservations"));
     }
+
+    @Test
+    void getAuthenticatedRequestToCustomerReservationsEndpointWithInvalidData_shouldRenderReservationsView() throws Exception {
+        AuthenticatedUser authenticatedUser = TestBuilder.createAuthenticatedUser();
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/reservations/customers/{customerId}", UUID.randomUUID())
+                .with(user(authenticatedUser));
+
+        Restaurant restaurant = TestBuilder.createRestaurant();
+        Reservation res = new Reservation();
+        res.setReservationStatus(ReservationStatus.RESERVED);
+        res.setCustomersNumber(1);
+        res.setPhoneNumber("1111111111");
+        res.setRestaurant(restaurant);
+
+        when(reservationService.getReservationsByClientId(any())).thenReturn(List.of(res));
+
+        mockMvc.perform(req)
+                .andExpect(status().isOk())
+                .andExpect(view().name("customer/reservations"))
+                .andExpect(model().attributeExists("reservations"));
+    }
 }
