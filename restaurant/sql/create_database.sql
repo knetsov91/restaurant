@@ -1,1 +1,1 @@
-CREATR DATABASE restaurant;
+CREATE DATABASE restaurant;
