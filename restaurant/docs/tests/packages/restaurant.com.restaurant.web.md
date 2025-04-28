@@ -78,7 +78,7 @@
 </thead>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.AuthenticationControllerApiTest.html">AuthenticationControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.AuthenticationControllerApiTest.md">AuthenticationControllerApiTest</a>
 </td>
 <td>3</td>
 <td>0</td>
@@ -88,7 +88,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.CustomerControllerApiTest.html">CustomerControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.CustomerControllerApiTest.md">CustomerControllerApiTest</a>
 </td>
 <td>1</td>
 <td>0</td>
@@ -98,7 +98,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.EmployeeControllerApiTest.html">EmployeeControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.EmployeeControllerApiTest.md">EmployeeControllerApiTest</a>
 </td>
 <td>5</td>
 <td>0</td>
@@ -108,7 +108,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.IndexControllerApiTest.html">IndexControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.IndexControllerApiTest.md">IndexControllerApiTest</a>
 </td>
 <td>5</td>
 <td>0</td>
@@ -118,7 +118,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.MenuControllerApiTest.html">MenuControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.MenuControllerApiTest.md">MenuControllerApiTest</a>
 </td>
 <td>7</td>
 <td>0</td>
@@ -128,7 +128,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.MenuItemControllerApiTest.html">MenuItemControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.MenuItemControllerApiTest.md">MenuItemControllerApiTest</a>
 </td>
 <td>4</td>
 <td>0</td>
@@ -138,7 +138,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.ReservationControllerApiTest.html">ReservationControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.ReservationControllerApiTest.md">ReservationControllerApiTest</a>
 </td>
 <td>5</td>
 <td>0</td>
@@ -148,7 +148,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.RestaurantControllerApiTest.html">RestaurantControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.RestaurantControllerApiTest.md">RestaurantControllerApiTest</a>
 </td>
 <td>4</td>
 <td>0</td>
@@ -158,7 +158,7 @@
 </tr>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.web.UserControllerApiTest.html">UserControllerApiTest</a>
+<a href="../classes/restaurant.com.restaurant.web.UserControllerApiTest.md">UserControllerApiTest</a>
 </td>
 <td>1</td>
 <td>0</td>

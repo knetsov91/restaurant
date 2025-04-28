@@ -13,7 +13,7 @@
 <h1>UserControllerApiTest</h1>
 <div class="breadcrumbs">
 <a href="../index.md">all</a> &gt;
-<a href="../packages/restaurant.com.restaurant.web.html">restaurant.com.restaurant.web</a> &gt; UserControllerApiTest</div>
+<a href="../packages/restaurant.com.restaurant.web.md">restaurant.com.restaurant.web</a> &gt; UserControllerApiTest</div>
 <div id="summary">
 <table>
 <tr>
