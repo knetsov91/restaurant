@@ -2,8 +2,10 @@
 
 <h2>Overview</h2>
 <p>Project implements system for restaurants management. It comprises two projects - this and <a href="https://github.com/knetsov91/order-service-java-spring">this</a>
-This project is implemented using MVC architectural pattern. It is responsible for -
-authentication, user management, restaurant relater functionalities.
+Current project is implemented using 3-tier architecture. It is responsible for -
+authentication, user management, restaurant relater functionalities. Information is persisted in PostgreSQL RDBMS and interaction with it is made using Hibernate ORN and
+Spring Data JPA. There are unit, integration and tests for the web layer. This project is dockerized for easier distribution and 
+deployment.
 
 </p>
 
