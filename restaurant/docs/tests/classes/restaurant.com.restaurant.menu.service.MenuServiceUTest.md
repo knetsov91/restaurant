@@ -13,7 +13,7 @@
 <h1>MenuServiceUTest</h1>
 <div class="breadcrumbs">
 <a href="../index.md">all</a> &gt;
-<a href="../packages/restaurant.com.restaurant.menu.service.html">restaurant.com.restaurant.menu.service</a> &gt; MenuServiceUTest</div>
+<a href="../packages/restaurant.com.restaurant.menu.service.md">restaurant.com.restaurant.menu.service</a> &gt; MenuServiceUTest</div>
 <div id="summary">
 <table>
 <tr>

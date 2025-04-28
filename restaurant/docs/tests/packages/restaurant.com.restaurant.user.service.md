@@ -78,7 +78,7 @@
 </thead>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.user.service.UserServiceUTest.html">UserServiceUTest</a>
+<a href="../classes/restaurant.com.restaurant.user.service.UserServiceUTest.md">UserServiceUTest</a>
 </td>
 <td>6</td>
 <td>0</td>

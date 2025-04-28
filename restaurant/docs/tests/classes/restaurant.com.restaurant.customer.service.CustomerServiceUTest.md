@@ -13,7 +13,7 @@
 <h1>CustomerServiceUTest</h1>
 <div class="breadcrumbs">
 <a href="../index.md">all</a> &gt;
-<a href="../packages/restaurant.com.restaurant.customer.service.html">restaurant.com.restaurant.customer.service</a> &gt; CustomerServiceUTest</div>
+<a href="../packages/restaurant.com.restaurant.customer.service.md">restaurant.com.restaurant.customer.service</a> &gt; CustomerServiceUTest</div>
 <div id="summary">
 <table>
 <tr>

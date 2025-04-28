@@ -78,7 +78,7 @@
 </thead>
 <tr>
 <td class="success">
-<a href="../classes/restaurant.com.restaurant.menu.service.MenuServiceUTest.html">MenuServiceUTest</a>
+<a href="../classes/restaurant.com.restaurant.menu.service.MenuServiceUTest.md">MenuServiceUTest</a>
 </td>
 <td>3</td>
 <td>0</td>
