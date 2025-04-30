@@ -22,9 +22,9 @@ deployment.
 
 <p>More details</p>
 <ul>
-    <li>Architecture </span><a href="../restaurant/docs/architecture/architecture.md">Link</a></li>
-    <li>Database </span><a href="../restaurant/docs/database/database.md">Link</a></li>
-    <li>Api </span><a href="../restaurant/docs/api/api.md">Link</a></li>
-    <li>Security </span><a href="../restaurant/docs/security/security.md">Link</a></li>
-    <li>Tests </span><a href="../restaurant/docs/tests/test.md">Link</a></li>
+    <li>Architecture </span><a href="./restaurant/docs/architecture/architecture.md">Link</a></li>
+    <li>Database </span><a href="./restaurant/docs/database/database.md">Link</a></li>
+    <li>Api </span><a href="./restaurant/docs/api/api.md">Link</a></li>
+    <li>Security </span><a href="./restaurant/docs/security/security.md">Link</a></li>
+    <li>Tests </span><a href="./restaurant/docs/tests/test.md">Link</a></li>
 </ul>
